@@ -1,38 +1,31 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: #f5f8fa;
+    color: #14171a;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    text-align: center;
-}
-
-header {
-    background: #333;
-    color: white;
-    padding: 1rem;
 }
 
 .container {
-    max-width: 900px;
+    max-width: 600px;
     margin: auto;
     padding: 20px;
+}
+
+header {
+    background: #1da1f2;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.5em;
 }
 
 .post {
     background: white;
     padding: 15px;
-    margin: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: left;
-}
-
-.profile-pic {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 10px;
-    vertical-align: middle;
+    margin: 10px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .post-header {
@@ -40,18 +33,32 @@ header {
     align-items: center;
 }
 
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
 .like-btn {
-    background: #008CBA;
-    color: white;
-    border: none;
+    background: none;
+    border: 1px solid #1da1f2;
+    color: #1da1f2;
     padding: 5px 10px;
     cursor: pointer;
+    border-radius: 5px;
     margin-top: 10px;
 }
 
-footer {
-    margin-top: 20px;
-    padding: 10px;
-    background: #333;
+.like-btn:hover {
+    background: #1da1f2;
     color: white;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background: #1da1f2;
+    color: white;
+    margin-top: 20px;
 }
