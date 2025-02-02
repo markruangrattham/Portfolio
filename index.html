@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark's Social Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        header {
+            background: #333;
+            color: white;
+            padding: 1rem;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+        .post {
+            background: white;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .post-header {
+            display: flex;
+            align-items: center;
+        }
+        .like-btn {
+            background: #008CBA;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            background: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mark's Social Hub</h1>
+        <p>Welcome to my social media-inspired website!</p>
+    </header>
+    
+    <div class="container">
+        <h2>Latest Posts</h2>
+        
+        <div class="post">
+            <div class="post-header">
+                <img class="profile-pic" src="https://via.placeholder.com/50" alt="User Profile">
+                <strong>John Doe</strong>
+            </div>
+            <p>Had a great day working on my new project! 🚀</p>
+            <button class="like-btn" onclick="likePost(this)">Like</button>
+        </div>
+        
+        <div class="post">
+            <div class="post-header">
+                <img class="profile-pic" src="https://via.placeholder.com/50" alt="User Profile">
+                <strong>Jane Smith</strong>
+            </div>
+            <p>Excited to share my latest coding tutorial! 💻</p>
+            <button class="like-btn" onclick="likePost(this)">Like</button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Mark's Social Hub</p>
+    </footer>
+    
+    <script>
+        function likePost(button) {
+            button.textContent = 'Liked!';
+            button.style.backgroundColor = '#4CAF50';
+        }
+    </script>
+</body>
+</html>
