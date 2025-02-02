@@ -6,6 +6,7 @@ body {
     margin: 0;
     padding: 0;
     text-align: center;
+    min-height: 150vh;
 }
 
 /* Profile Section */
@@ -93,9 +94,12 @@ body {
 
 /* Skills Section */
 .skills-section {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically (if needed) */
     text-align: center;
-    padding: 50px 20px;
-    background-color: #f8f9fa;
+    flex-direction: column;
+    width: 100%;
 }
 
 .skills-section h2 {
@@ -104,23 +108,29 @@ body {
     color: #1d3557;
 }
 
-/* Skills Grid Layout */
 .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    display: flex;
     gap: 20px;
-    max-width: 1000px;
-    margin: 0 auto;
+    overflow-x: auto; /* Enables horizontal scrolling */
+    white-space: nowrap;
+    scroll-snap-type: x mandatory; /* Ensures smooth scrolling */
+    padding-bottom: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 /* Individual Skill Boxes */
 .skill-box {
+    min-width: 300px; /* Ensures boxes fit well */
+    flex: 0 0 auto;
+    scroll-snap-align: center; /* Aligns elements during scroll */
     background: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-left: 5px solid #e63946;
     transition: 0.3s ease-in-out;
+    text-align: left;
 }
 
 .skill-box:hover {
@@ -131,17 +141,37 @@ body {
     font-size: 1.4rem;
     margin-bottom: 10px;
     color: #e63946;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .skill-box ul {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
 }
 
 .skill-box ul li {
     font-size: 1rem;
     margin: 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
+
+.skill-box ul li img, 
+.skill-box ul li i {
+    width: 20px;  /* Adjust size */
+    height: 20px;
+}
+.title-icon {
+    width: 60px;  /* Adjust size */
+    height: auto;
+    margin-right: 10px;
+    vertical-align: middle; /* Aligns it with text */
+    background: none; /* Removes background if it's set */
+}
+
 
 
 /* Footer */
@@ -154,4 +184,5 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+    
 }
