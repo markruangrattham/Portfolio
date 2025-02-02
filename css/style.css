@@ -25,6 +25,7 @@ body {
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    gap: 20px;
 }
 
 /* Profile Image */
@@ -75,10 +76,10 @@ body {
 .cv-btn {
     background-color: #e63946;
     color: white;
-    padding: 10px 20px;
-    font-size: 1em;
+    padding: 12px 24px;
+    font-size: 1.1em;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     margin-top: 20px;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
@@ -87,13 +88,14 @@ body {
 
 .cv-btn:hover {
     background-color: #c62f38;
+    transform: scale(1.05);
 }
 
 /* Footer */
 footer {
     text-align: center;
     padding: 10px;
-    background: #1d3557;
+    background: #e63946;
     color: white;
     font-size: 0.9em;
     position: fixed;
