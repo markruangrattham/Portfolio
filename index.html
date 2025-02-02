@@ -3,44 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mark's Social Hub</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Mark's Portfolio</title>
+    <link rel="stylesheet" href="/Portfolio/css/style.css">
 </head>
 <body>
-    <header>
-        Mark's Social Hub
-    </header>
-    
-    <div class="container">
-        <div class="post">
-            <div class="post-header">
-                <img class="profile-pic" src="https://via.placeholder.com/50" alt="User Profile">
-                <strong>John Doe</strong>
+    <section class="profile-section">
+        <div class="profile-container">
+            <div class="profile-image">
+                <img src="https://via.placeholder.com/200" alt="Profile Picture">
             </div>
-            <p>Had a great day working on my new project! 🚀</p>
-            <button class="like-btn" onclick="likePost(this)">Like</button>
-        </div>
-        
-        <div class="post">
-            <div class="post-header">
-                <img class="profile-pic" src="https://via.placeholder.com/50" alt="User Profile">
-                <strong>Jane Smith</strong>
+            <div class="profile-info">
+                <h1>I'm Mark Ruangrattham and <span class="highlight">Software Developer</span></h1>
+                <p>Hi! My name is <em>Mark Ruangrattham</em>. I am a software engineer passionate about building innovative and scalable solutions. With experience in full-stack development, I aim to create impactful applications.</p>
+                <ul class="details">
+                    <li><strong>🎂 Birthday:</strong> 01.07.1998</li>
+                    <li><strong>📍 Location:</strong> San Diego, USA</li>
+                    <li><strong>🎓 Study:</strong> University of California, San Diego</li>
+                    <li><strong>📧 Mail:</strong> markruangrattham@gmail.com</li>
+                    <li><strong>📱 Phone:</strong> +1 234 567 8900</li>
+                </ul>
+                <button class="cv-btn">Download CV</button>
             </div>
-            <p>Excited to share my latest coding tutorial! 💻</p>
-            <button class="like-btn" onclick="likePost(this)">Like</button>
         </div>
-    </div>
+    </section>
     
     <footer>
-        &copy; 2025 Mark's Social Hub
+        &copy; 2025 Mark's Portfolio
     </footer>
-    
-    <script>
-        function likePost(button) {
-            button.textContent = 'Liked!';
-            button.style.backgroundColor = '#1da1f2';
-            button.style.color = 'white';
-        }
-    </script>
 </body>
 </html>
