@@ -64,46 +64,10 @@
 /* Mobile Navigation */
 @media (max-width: 768px) {
     .navbar {
-        background-color: transparent;
-    }
-
-    .nav-container {
-        justify-content: flex-end;
-    }
-
-    .logo {
         display: none;
-    }
-
-    .nav-toggle {
-        display: block;
-        background: none;
-        border: none;
-        font-size: 2rem;
-        color: white;
-        cursor: pointer;
-    }
-
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        background: #e63946;
-        width: 100%;
-        position: absolute;
-        top: 50px;
-        left: 0;
-        padding: 10px 0;
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .nav-links li {
-        text-align: center;
-        padding: 10px 0;
     }
 }
+
 
 
 /* Responsive General Styles */
