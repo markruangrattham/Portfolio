@@ -132,22 +132,25 @@ body {
 
 /* Profile Section */
 .profile-section {
+    background: linear-gradient(to right, #d7263d, #ffffff);
+    color: black;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #ffffff;
+    padding: 20px;
 }
+
 
 .profile-container {
     display: flex;
     align-items: center;
     max-width: 900px;
-    background: #fff;
+    background: white;
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    gap: 20px;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    text-align: left;
 }
 
 /* Profile Image */
@@ -170,9 +173,15 @@ body {
     margin-bottom: 10px;
     color: #1d3557;
 }
+.profile-info p {
+    color: black;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
 
 .highlight {
-    color: #e63946;
+    color : #e63946;
     font-weight: bold;
 }
 
