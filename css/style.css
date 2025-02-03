@@ -61,20 +61,27 @@
     cursor: pointer;
 }
 
+/* Mobile Navigation */
 @media (max-width: 768px) {
     .navbar {
-        position: absolute;
+        background-color: transparent;
     }
 
-    .profile-section {
-        margin-top: 60px;
+    .nav-container {
+        justify-content: flex-end;
+    }
+
+    .logo {
+        display: none;
     }
 
     .nav-toggle {
         display: block;
-        position: absolute;
-        top: 15px;
-        right: 20px;
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: white;
+        cursor: pointer;
     }
 
     .nav-links {
@@ -97,6 +104,7 @@
         padding: 10px 0;
     }
 }
+
 
 /* Responsive General Styles */
 @media (max-width: 768px) {
