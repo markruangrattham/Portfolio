@@ -119,10 +119,13 @@
     }
 }
 
+/* Import Modern Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+
 /* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
     color: #333;
     margin: 0;
     padding: 0;
