@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mark's Portfolio</title>
-    <link rel="stylesheet" href="/Portfolio/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <section class="profile-section">
@@ -13,15 +13,14 @@
                 <img src="/Portfolio/img/profilepic.jpg" alt="Profile Picture">
             </div>
             <div class="profile-info">
-                <h1>Oh Hi Mark! Are you a <span class="highlight">Software Developer</span>?</h1>
+                <h1> Mark Ruangrattham </h1><span class="highlight">Software Developer</span></h1>
 
-                <p>Hi! My name is <strong>Mark Ruangrattham</strong>. I'm a fourth-year Computer Science student with a passion for creating and bringing ideas to life. I’m currently seeking internship opportunities for this year to apply my skills and gain hands-on experience.</p>
+                <p>Hi! My name is <strong>Mark Ruangrattham</strong>. I'm a fourth-year Computer Science student with a passion for creating and bringing ideas to life. I’m currently seeking employment opportunities to apply my skills and gain hands-on experience.</p>
                 <ul class="details">
              
                     <li><strong>📍 Location:</strong> San Diego, USA</li>
                     <li><strong>🎓 Study:</strong> University of California, San Diego</li>
                     <li><strong>📧 Mail:</strong> <a href="mailto:markruangrattham@gmail.com">markruangrattham@gmail.com</a></li>
-                    
                 </ul>
                 <button class="cv-btn">Download CV</button>
             </div>
@@ -30,47 +29,123 @@
 
     <section class="skills-section">
         <h2>My Skills</h2>
-        <div class="skills-grid">
-            <div class="skill-box">
-                <h3>💻 Programming</h3>
-                <ul>
-                    <li>JavaScript (React, Node.js)</li>
-                    <li>Python (Flask, Pandas, ML)</li>
-                    <li>SQL (PostgreSQL, MySQL)</li>
-                </ul>
+        <div class="skills-container">
+            <div class="skills-grid">
+                <div class="skill-box">
+                    <h3><img src="/Portfolioimg/icons/programming.png" alt="Programming Icon" class="title-icon">Programming</h3>
+                        <ul>
+                            <li><img src="/Portfolioimg/icons/javascript.png" alt="JS Icon" class="icon"> JavaScript (React, Node.js)</li>
+                            <li><img src="/Portfolioimg/icons/html.png" alt="HTML Icon" class="icon"> HTML5 (CSS, Tailwind)</li>
+                            <li><img src="/Portfolioimg/icons/java.png" alt="Java Icon" class="icon"> Java (JUNIT, )</li>
+                            <li><img src="/Portfolioimg/icons/python.png" alt="Python Icon" class="icon"> Python (Pandas, ML, NumPy)</li>
+                            <li><img src="/Portfolioimg/icons/c++.png" alt="C++ Icon" class="icon"> C++ (C, GDB,Valgrind)</li>
+                        </ul>
+                </div>
+                <div class="skill-box">
+                    <h3><img src="/Portfolioimg/icons/swe.png" alt="SWE Icon" class="title-icon">Software Infrastructure</h3>
+                        <ul>
+                            <li><img src="/Portfolioimg/icons/git.png" alt="Git Icon" class="icon"> Git (GitHub, CI/CD Pipeline)</li>
+                            <li><img src="/Portfolioimg/icons/aws.jfif" alt="AWS Icon" class="icon"> Cloud (AWS, Docker, Kubernetes )</li>
+                            <li><img src="/Portfolioimg/icons/database.avif" alt="Database Icon" class="icon"> Database Management (SQL, pgAdmin)</li>
+                        </ul>
+                </div>  
+                <div class="skill-box">
+                    <h3><img src="/Portfolioimg/icons/problem-solving.jpg" alt="problem-solving" class="title-icon">Problem Solving</h3>
+                        <ul>
+                            <li><img src="/Portfolioimg/icons/datastructures.png" alt="DS" class="icon">Data Structures & Algorithms</li>
+                            <li><img src="/Portfolioimg/icons/leetcode.png" alt="leetcode" class="icon">Coding Challenges (LeetCode, HackerRank)</li>
+                            <li><img src="/Portfolioimg/icons/fix.png" alt="'fix" class="icon">Code Efficiency & Debugging<li>
+                            <li><img src="/Portfolioimg/icons/team.jpg" alt="'team" class="icon">Communication & Team Collaboration</li>
+                            
+                        </ul>
+
+
+
+            </div>
+        </div>
+    </section>
+    <script src="src/script.js"></script>
+
+    <section class="projects-section">
+        <h2>Projects</h2>
+        <div class="projects-container">
+            <div class="project-slide">
+                <a href="https://gyazo.com/280b4faee9871bb01a7395b3ae29c89b"><video width="382.6666666666667" autoplay muted loop playsinline controls><source src="https://i.gyazo.com/280b4faee9871bb01a7395b3ae29c89b.mp4" type="video/mp4"/></video></a>
+                <div class="project-info">
+                    <h3>Valhalla Bot</h3>
+                    <p>A Discord bot designed to streamline the organization of in-game tournaments by generating custom 
+                        roles for participants to have access to exclusive channels and perks,
+                        and saving all recorded data efficiently. Currently being used on a sever with 600 plus active!</p>
+                    <p><strong>Technologies:</strong> Python, Discord API</p>
+                </div>
+            </div>
+            <div class="project-slide">
+                <img src="/Portfolioimg/projects/flag_spinner.gif" alt="Valhalla Flag Spinner">
+                <div class="project-info">
+                    <h3>Valhalla World Cup Spinner</h3>
+                    <p>A dynamic website for the Valhalla World Cup event that integrates with the Discord API to display player profiles. 
+                        The site randomly assigns teams(like a spin the wheel) to users and saves the results locally.</p>
+                    <p><strong>Technologies:</strong> React, JavaScript (Backend), Discord API</p>
+                </div>
+            </div>
+            <div class="project-slide">
+                <img src="/Portfolioimg/projects/invite.png" alt="Valhalla Flag Spinner">
+                <div class="project-info">
+                    <h3>Marky Bot</h3>
+                    <p>Provides essential moderation tools(ban,timeout,invite tracker) and interactive features such as leaderboards and ranked matches to enhance community engagement. Currently utilized by over 10 moderators on an active server with more than 600 members!</p>
+                    <p><strong>Technologies:</strong>Discord API, Python</p>
+                </div>
+            </div>
+            <div class="project-slide">
+                <img src="/Portfolioimg/projects/bb birthday.gif" alt="Chat Box App">
+                <div class="project-info">
+                    <h3>Happy Birthday Countdown website</h3>
+                    <p>I created this project as a fun birthday gift for my girlfriend. It features a music player and a countdown timer that reveals a special video when it reaches her birthday!</p>
+                    <p><strong>Technologies:</strong> React</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="nav-btn prev-btn">&#10094; </button>
+            <button class="nav-btn next-btn"> &#10095;</button>
+        </div>
+        
+    </section>
+    
+    <section class="experience-section">
+        <h2>Experience</h2>
+        <div class="experience-container">
+            <div class="experience-entry" onclick="toggleDetails(this)">
+                <img src="/Portfolioimg/experience/juni_learning.png" alt="juni_learning Icon" class="experience-icon">
+                <h3>Computer Science and Math Tutor</h3>
+                <p><em>Juni Learning</em></p>
+                <p><em>October 2022 - Present</em></p>
+                <div class="experience-details">
+                    <p>
+                        Taught and mentored 15 diverse students in computer science, covering AP CS, Java, Python, JavaScript, and C. 
+                        Recognized for excellence, selected to teach advanced courses like USACO, demonstrating strong instructional skills and subject mastery.
+                    </p>
+                    <p><strong>Skills gained:</strong> Communication, Debugging, Teaching</p>
+                </div>
             </div>
     
-            <div class="skill-box">
-                <h3>🚀 Web Development</h3>
-                <ul>
-                    <li>HTML, CSS, Tailwind</li>
-                    <li>React.js & Next.js</li>
-                    <li>API Development</li>
-                </ul>
-            </div>
-    
-            <div class="skill-box">
-                <h3>🔍 Problem Solving</h3>
-                <ul>
-                    <li>Data Structures & Algorithms</li>
-                    <li>Debugging & Optimization</li>
-                    <li>System Design</li>
-                </ul>
-            </div>
-    
-            <div class="skill-box">
-                <h3>☁️ Cloud & Tools</h3>
-                <ul>
-                    <li>AWS & Firebase</li>
-                    <li>Git & GitHub</li>
-                    <li>Docker & CI/CD</li>
-                </ul>
+            <div class="experience-entry" onclick="toggleDetails(this)">
+                <img src="/Portfolioimg/experience/valhalla_FC.png" alt="Valhalla FC" class="experience-icon">
+                <h3>Freelance Software Engineering </h3>
+                <p><em>Valhalla FC</em></p>
+                <p><em>September 2024 - Present</em></p>
+                <div class="experience-details">
+                    <p>Develop tools and applications to enhance server growth, streamline moderation, and improve user experience. Valhalla FC is one of the fastest-growing FC Mobile communities, with over 600 active members, striving to become a top server on the platform.</p>
+                    <p><strong>Skills gained:</strong> DevOps, Discord API, Testing</p>
+                </div>
             </div>
         </div>
     </section>
     
+    
     <footer>
-        &copy; 2025 Mark's Portfolio
+        &copy; 2025 Mark's Portfolio Last Updated: 2/3/2025
     </footer>
 </body>
 </html>
