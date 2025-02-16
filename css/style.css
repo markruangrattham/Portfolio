@@ -217,23 +217,34 @@ body {
     margin-right: 10px;
 }
 
-/* CV Button */
 .cv-btn {
-    background-color: #e63946;
-    color: white;
-    padding: 12px 24px;
-    font-size: 1.1em;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 20px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-    transition: background 0.3s ease;
+    background-color: #e63946; /* Primary red color */
+    color: white; /* Text color */
+    padding: 12px 24px; /* Padding for the button */
+    font-size: 1.1em; /* Font size for readability */
+    border: none; /* Remove borders */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor for hover effect */
+    margin-top: 20px; /* Space above the button */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth animations */
+    text-align: center; /* Center the text */
+    display: inline-block; /* Ensure inline-block for proper spacing */
 }
 
 .cv-btn:hover {
-    background-color: #c62f38;
-    transform: scale(1.05);
+    background-color: #c62f38; /* Darker red for hover effect */
+    transform: scale(1.05); /* Slight zoom on hover */
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+}
+
+.cv-btn a {
+    text-decoration: none; /* Remove underline from the link */
+    color: inherit; /* Inherit the button's text color */
+    display: block; /* Make the link fill the button */
+    width: 100%; /* Ensure full width */
+    height: 100%; /* Ensure full height */
+    text-align: center; /* Center align text */
 }
 
 /* Skills Section */
