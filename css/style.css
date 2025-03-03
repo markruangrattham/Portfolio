@@ -199,6 +199,11 @@ body {
     font-weight: bold;
 }
 
+.dot {
+    color : linear-gradient(to right, #d7263d, #ffffff);
+    font-weight: bold;
+}
+
 /* Details List */
 .details {
     list-style: none;
