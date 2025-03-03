@@ -336,6 +336,12 @@ body {
     text-align: center;
 }
 
+.projects-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #1d3557;
+}
+
 .projects-container {
     position: relative;
     display: flex;
@@ -403,6 +409,12 @@ body {
     padding: 60px 0;
     background-color: #f9f9f9;
     width: 100%;
+}
+
+.experience-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #1d3557;
 }
 
 .experience-container {
@@ -503,6 +515,14 @@ body {
     width: 100%;
 }
 
+.about-me-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #1d3557;
+}
+
+
+
 .about-me-container {
     max-width: 900px;
     margin: auto;
@@ -525,6 +545,12 @@ body {
     text-align: center;
     margin-top: 20px;
     padding: 20px;
+}
+
+.courses-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #1d3557;
 }
 
 .toggle-courses-btn {
@@ -576,6 +602,12 @@ body {
     text-align: center;
     padding: 60px 20px;
     background-color: #f8f9fa;
+}
+
+.contact-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #1d3557;
 }
 
 /* Center Contact Container */
