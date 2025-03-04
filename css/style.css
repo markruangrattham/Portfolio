@@ -696,7 +696,8 @@ body {
 
 /* Send Message Button */
 .contact-form button {
-    background-color: #e63946;
+    background-color: #f2626e; /* Primary red color */
+
     color: white;
     padding: 14px;
     font-size: 1.1rem;
