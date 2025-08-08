@@ -3,294 +3,746 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mark's Portfolio</title>
+    <title>Mark Ruangrattham - Software Engineer & Web Designer</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 
-
-
-<nav class="navbar">
-    <div class="nav-container">
-        <a href="#" class="logo">Mark Ruangrattham</a>
-        <button class="nav-toggle">&#9776;</button> <!-- Mobile Menu Button -->
-        <ul class="nav-links">
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#about">About Me</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </div>
-</nav>
-
 <body>
-    <section id="profile" class="profile-section">
-        <div class="profile-container">
-            <div class="profile-image">
-                <img src="img/profilepic.jpg" alt="Profile Picture">
-            </div>
-            <div class="profile-info">
-                <h1> Mark Ruangrattham<br>
-                <span class="highlight">Software Engineer <span class="dot">•</span> Web Designer</span>
-            </h1>
-
-                <p>Howdy! My name is Mark Ruangrattham. I'm a fourth-year Computer Science student with a minor in Economics at the University of California San Diego (UCSD). With a passion for creating and bringing ideas to life. I'm excited to apply my experience to create meaningful solutions and make  lasting impacts!</p>
-                <button class="cv-btn">
-                    <a href="resume\Mark's Resume no number.pdf" download>Download Resume</a>
-                </button>
-            </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-text">Mark Ruangrattham</span>
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
-    </section>
+    </nav>
 
-    <section id="skills" class="skills-section">
-        <h2>My Skills</h2>
-        <div class="skills-container">
-            <div class="skills-grid">
-                <div class="skill-box">
-                    <h3><img src="img/icons/programming.png" alt="Programming Icon" class="title-icon">Programming</h3>
-                        <ul>
-                            <li><img src="img/icons/javascript.png" alt="JS Icon" class="icon"> JavaScript (React, Node.js)</li>
-                            <li><img src="img/icons/html.png" alt="HTML Icon" class="icon"> HTML5 (CSS, Tailwind)</li>
-                            <li><img src="img/icons/java.png" alt="Java Icon" class="icon"> Java (JUNIT)</li>
-                            <li><img src="img/icons/python.png" alt="Python Icon" class="icon"> Python (Pandas, ML, NumPy)</li>
-                            <li><img src="img/icons/c++.png" alt="C++ Icon" class="icon"> C++ (C, GDB,Valgrind)</li>
-                        </ul>
-                </div>
-                <div class="skill-box">
-                    <h3><img src="img/icons/swe.png" alt="SWE Icon" class="title-icon">Software Infrastructure</h3>
-                        <ul>
-                            <li><img src="img/icons/git.png" alt="Git Icon" class="icon"> Git (GitHub, CI/CD Pipeline)</li>
-                            <li><img src="img/icons/aws.jfif" alt="AWS Icon" class="icon"> Cloud (AWS, Docker, Kubernetes )</li>
-                            <li><img src="img/icons/database.avif" alt="Database Icon" class="icon"> Database Management (SQL, pgAdmin)</li>
-                        </ul>
-                </div>  
-                <div class="skill-box">
-                    <h3><img src="img/icons/problem-solving.jpg" alt="problem-solving" class="title-icon">Problem Solving</h3>
-                        <ul>
-                            <li><img src="img/icons/datastructures.png" alt="DS" class="icon">Data Structures & Algorithms</li>
-                            <li><img src="img/icons/leetcode.png" alt="leetcode" class="icon">Coding Challenges (LeetCode, HackerRank)</li>
-                            <li><img src="img/icons/fix.png" alt="'fix" class="icon">Code Efficiency & Debugging<li>
-                            <li><img src="img/icons/team.jpg" alt="'team" class="icon">Communication & Team Collaboration</li>
-                            
-                        </ul>
-
-
-
-            </div>
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-background">
+            <div class="hero-particles"></div>
         </div>
-    </section>
-    <script src="src/script.js"></script>
-
-    <section id="projects" class="projects-section">
-        <h2>Projects</h2>
-        <div class="projects-container">
-            <div class="project-slide">
-                <a href="https://gyazo.com/280b4faee9871bb01a7395b3ae29c89b"><video width="382.6666666666667" autoplay muted loop playsinline controls><source src="https://i.gyazo.com/280b4faee9871bb01a7395b3ae29c89b.mp4" type="video/mp4"/></video></a>
-                <div class="project-info">
-                    <h3>Valhalla Bot</h3>
-                    <p>A Discord bot designed to streamline the organization of in-game tournaments by generating custom 
-                        roles for participants to have access to exclusive channels and perks,
-                        and saving all recorded data efficiently. Currently being used on a sever with 600 plus active!</p>
-                    <p><strong>Technologies:</strong> Python, Discord API</p>
-                </div>
-            </div>
-            <div class="project-slide">
-                <img src="img/projects/flag_spinner.gif" alt="Valhalla Flag Spinner">
-                <div class="project-info">
-                    <h3>Valhalla World Cup Spinner</h3>
-                    <p>A dynamic website for the Valhalla World Cup event that integrates with the Discord API to display player profiles. 
-                        The site randomly assigns teams (e.g., Spin the Wheel) to users and saves the results locally.</p>
-                    <p><strong>Technologies:</strong> React, JavaScript (Backend), Discord API</p>
-                </div>
-            </div>
-            <div class="project-slide">
-                <img src="img/projects/invite.png" alt="Valhalla Flag Spinner">
-                <div class="project-info">
-                    <h3>Marky Bot</h3>
-                    <p>Provides essential moderation tools (e.g, ban,timeout,invite tracker) including interactive features, such as leaderboards and ranked matches to enhance community engagement. Currently utilized by over 10 moderators on an active server with more than 600 members!</p>
-                    <p><strong>Technologies:</strong> Discord API, Python</p>
-                </div>
-            </div>
-            <div class="project-slide">
-                <img src="img/projects/bb birthday.gif" alt="Chat Box App">
-                <div class="project-info">
-                    <h3>Happy Birthday Countdown Website</h3>
-                    <p>I created this project as an exciting birthday gift for my girlfriend. It features a music player and a countdown timer that reveals a special video when it reaches her birthday!</p>
-                    <p><strong>Technologies:</strong> React</p>
-                </div>
-            </div>
-            <div class="project-slide">
-                <iframe 
-                  width="384" 
-                  height="216" 
-                  src="https://www.youtube.com/embed/xdCblU1HOhE" 
-                  title="StudyGenius Demo Video"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen>
-                </iframe>
-              
-                <div class="project-info">
-                  <h3>StudyGenius</h3>
-                  <p>
-                    A full-stack flashcard web app that enables users to create, edit, and study custom flashcards. 
-                    Integrated Firebase Authentication and Firestore to manage user data securely and added OpenAI-powered features to enhance the studying experience. 
-                    Collaborated during a hackathon, overcoming steep learning curves in component design and asynchronous data handling.
-                  </p>
-                  <p><strong>Technologies:</strong> React, Firebase, OpenAI API, UX/UI Design, Collaboration, Problem-Solving</p>
-                </div>
-              </div>
-              
-        </div>
-
-        <div class="nav-buttons">
-            <button class="nav-btn prev-btn">&#10094; </button>
-            <button class="nav-btn next-btn"> &#10095;</button>
-        </div>
-        
-    </section>
-    
-    <section id="experience" class="experience-section">
-        <h2>Experience</h2>
-        <div class="experience-container">
-            <div class="experience-entry" onclick="toggleDetails(this)">
-                <img src="img/experience/juni_learning.png" alt="juni_learning Icon" class="experience-icon">
-                <h3>Computer Science Tutor</h3>
-                <p><em>Juni Learning</em></p>
-                <p><em>October 2022 - Present</em></p>
-                <div class="experience-details">
-                    <p>
-                        Instructed and mentored numerous diverse students in Computer Science, covering Java, Python, JavaScript, and C. 
-                        Selected to teach advanced courses (e.g., USACO). Demonstrated strong teaching skills and subject mastery.
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge">
+                        <span>Hello, I'm</span>
+                    </div>
+                    <h1 class="hero-title">
+                        Mark Ruangrattham
+                    </h1>
+                    <p class="hero-subtitle">
+                        Software Engineer & Web Designer
                     </p>
-                    <p><strong>Skills gained:</strong> Communication, Debugging, Teaching</p>
+                    <p class="hero-description">
+                        Fourth-year Computer Science student at UCSD with a passion for creating innovative solutions. 
+                        I specialize in full-stack development, Discord bot creation, and modern web applications.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="resume/Mark's Resume no number.pdf" download class="btn btn-primary">
+                            <span>Download Resume</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7,10 12,15 17,10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                        </a>
+                        <a href="#projects" class="btn btn-secondary">
+                            <span>View My Work</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9,18 15,12 9,6"></polyline>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
-            </div>
-    
-            <div class="experience-entry" onclick="toggleDetails(this)">
-                <img src="img/experience/valhalla_FC.png" alt="Valhalla FC" class="experience-icon">
-                <h3>Freelance Software Engineer</h3>
-                <p><em>Valhalla FC</em></p>
-                <p><em>September 2024 - Present</em></p>
-                <div class="experience-details">
-                    <p>Developed tools and applications to enhance server growth, streamline moderation, and improve user experience for 
-                        the fastest-growing FC Mobile server, Valhalla FC. Currently home to 600 active members.</p>
-                    <p><strong>Skills gained:</strong> DevOps, Discord API, Testing</p>
-                </div>
-            </div>
-
-            <div class="experience-entry" onclick="toggleDetails(this)">
-                <img src="img/experience/UCSD health.png" alt="UC San Diego Health" class="experience-icon">
-                <h3>Web Designer</h3>
-                <p><em>UC San Diego Health</em></p>
-                <p><em>March 2025 - Present</em></p>
-                <div class="experience-details">
-                    <p> Contributed to web development for UCSD Health’s Explore Career Path Program by enhancing user experience and streamlining navigation for student applicants. 
-                        Improved site layout and accessibility, and worked on backend database features using SQL to simplify application tracking for recruiters and staff.</p>
-                        <p><strong>Skills gained:</strong> Web Design, HTML/CSS, SQL, User Experience (UX)</p>
-                </div>
-            </div>
-            <div class="experience-entry" onclick="toggleDetails(this)">
-                <img src="img/experience/transact-logo.png" alt="Transact" class="experience-icon">
-                <h3>Software Engineer Intern</h3>
-                <p><em>Transact Campus + cbord</em></p>
-                <p><em>June 2025 - Present</em></p>
-                <div class="experience-details">
-                    <p>Will be starting this role in June 2nd!</p>
+                <div class="hero-image">
+                    <div class="profile-card">
+                        <img src="img/profilepic.jpg" alt="Mark Ruangrattham" class="profile-image">
                         
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll to explore</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Skills & Expertise</span>
+                <h2>Technologies I Work With</h2>
+                <p>From frontend frameworks to backend systems, I've built a diverse skill set to tackle any development challenge.</p>
+            </div>
+            
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <div class="skill-header">
+                        <div class="skill-icon">
+                            <img src="img/icons/programming.png" alt="Programming">
+                        </div>
+                        <h3>Programming Languages</h3>
+                    </div>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <img src="img/icons/javascript.png" alt="JavaScript">
+                            <div class="skill-info">
+                                <span class="skill-name">JavaScript</span>
+                                <span class="skill-detail">React, Node.js, ES6+</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="img/icons/python.png" alt="Python">
+                            <div class="skill-info">
+                                <span class="skill-name">Python</span>
+                                <span class="skill-detail">Pandas, ML, NumPy</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="img/icons/java.png" alt="Java">
+                            <div class="skill-info">
+                                <span class="skill-name">Java</span>
+                                <span class="skill-detail">JUnit, OOP</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="img/icons/c++.png" alt="C++">
+                            <div class="skill-info">
+                                <span class="skill-name">C++</span>
+                                <span class="skill-detail">GDB, Valgrind</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="img/icons/html.png" alt="HTML/CSS">
+                            <div class="skill-info">
+                                <span class="skill-name">HTML/CSS</span>
+                                <span class="skill-detail">Tailwind, Responsive</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-header">
+                        <div class="skill-icon">
+                            <img src="img/icons/swe.png" alt="Infrastructure">
+                        </div>
+                        <h3>Infrastructure & Tools</h3>
+                    </div>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <img src="img/icons/git.png" alt="Git">
+                            <div class="skill-info">
+                                <span class="skill-name">Git & GitHub</span>
+                                <span class="skill-detail">CI/CD, Version Control</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="img/icons/aws.jfif" alt="AWS">
+                            <div class="skill-info">
+                                <span class="skill-name">Cloud Services</span>
+                                <span class="skill-detail">AWS, Docker, Kubernetes</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="img/icons/database.avif" alt="Database">
+                            <div class="skill-info">
+                                <span class="skill-name">Databases</span>
+                                <span class="skill-detail">SQL, pgAdmin</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-header">
+                        <div class="skill-icon">
+                            <img src="img/icons/problem-solving.jpg" alt="Problem Solving">
+                        </div>
+                        <h3>Problem Solving</h3>
+                    </div>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <img src="img/icons/datastructures.png" alt="Data Structures">
+                            <div class="skill-info">
+                                <span class="skill-name">Data Structures</span>
+                                <span class="skill-detail">Algorithms, Optimization</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="img/icons/leetcode.png" alt="LeetCode">
+                            <div class="skill-info">
+                                <span class="skill-name">Coding Challenges</span>
+                                <span class="skill-detail">LeetCode, HackerRank</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="img/icons/fix.png" alt="Debugging">
+                            <div class="skill-info">
+                                <span class="skill-name">Debugging</span>
+                                <span class="skill-detail">Code Efficiency</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="img/icons/team.jpg" alt="Teamwork">
+                            <div class="skill-info">
+                                <span class="skill-name">Collaboration</span>
+                                <span class="skill-detail">Team Communication</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="about" class="about-me-section">
-        <h2>About Me</h2>
-        <div class="about-me-container">
-            <p>Hello again! Let me formally introduce myself. I’m <strong>Mark Ruangrattham</strong>, a 
-                <strong>fourth-year Computer Science student with a minor in Economics at UCSD</strong>. Passionate about 
-                <strong>software development and technological innovation</strong>, I’m always looking for opportunities to 
-                expand my skills and contribute to impactful projects.</p>
-        
-                <p>Currently, I work as a <strong>Web Designer for UCSD Health Extension</strong>, where I sharpen my expertise in 
-                <strong>React, HTML, and CSS</strong>, crafting intuitive and accessible web experiences. In addition, as a 
-                <strong>Computer Science Tutor at Juni Learning</strong>, I help students strengthen their programming 
-                foundations while refining my debugging and problem-solving skills.</p>
-        
-                <p>Outside of academics, I’m an avid <strong>gamer and sports enthusiast</strong>—whether it’s <strong>Minecraft, 
-                League of Legends, or FIFA</strong>, I love diving into interactive and competitive experiences. I’ve merged my 
-                passions for <strong>coding, gaming, and sports</strong> as a <strong>freelance Software Engineer for Valhalla FC</strong>, 
-                an online soccer gaming community. This role has provided me with hands-on experience in 
-                <strong>developing, maintaining, and optimizing</strong> software solutions for a growing online ecosystem.</p>
-        
-                <p>I’m eager to apply my <strong>technical expertise, problem-solving mindset, and creativity</strong> in the fast-moving 
-                world of technology—contributing to meaningful projects, tackling real-world challenges, and continuing to learn along the way.</p>
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Featured Work</span>
+                <h2>Projects I've Built</h2>
+                <p>From Discord bots to full-stack applications, here are some of my recent projects that showcase my technical skills and creativity.</p>
+            </div>
+            
+            <!-- Featured Project -->
+            <div class="projects-showcase">
+                <div class="project-card featured">
+                    <div class="project-media">
+                        <iframe src="https://www.youtube.com/embed/xdCblU1HOhE" title="StudyGenius Demo" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="tag">AI Powered</span>
+                            <span class="tag">Full-Stack</span>
+                            <span class="tag">Application</span>
+                            <span class="tag">Database</span>
+                            <span class="tag">React</span>
+                            <span class="tag">Firebase</span>
+                            <span class="tag">OpenAI API</span>
+                        </div>
+                        <h3>StudyGenius</h3>
+                        <p>Full-stack flashcard app with Firebase authentication and OpenAI-powered features for intelligent study assistance and progress tracking.</p>
+                        <div class="project-features">
+                            <span class="feature">🌐 Full-Stack App</span>
+                            <span class="feature">🗄️ Database</span>
+                            <span class="feature">⚡ Fast & Responsive</span>
+                            <span class="feature">🔒 Secure Auth</span>
+                            <span class="feature">🤖 OpenAI Integration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Grid -->
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-media">
+                        <video autoplay muted loop playsinline>
+                            <source src="https://i.gyazo.com/280b4faee9871bb01a7395b3ae29c89b.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Discord API</span>
+                            <span class="tag">Bot Development</span>
+                            <span class="tag">Tournament Management</span>
+                        </div>
+                        <h3>Valhalla Bot</h3>
+                        <p>A comprehensive Discord bot designed to streamline tournament organization with custom roles, exclusive channels, and efficient data management. Features include automated team assignments, real-time leaderboards, and seamless Discord integration.</p>
+                        <div class="project-stats">
+                            <div class="stat">
+                                <span class="stat-number">900+</span>
+                                <span class="stat-label">Active Users</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">20+</span>
+                                <span class="stat-label">Tournaments</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">24/7</span>
+                                <span class="stat-label">Uptime</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-media">
+                        <img src="img/projects/flag_spinner.gif" alt="Valhalla World Cup Spinner">
+
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Discord API</span>
+                            <span class="tag">Web App</span>
+                        </div>
+                        <h3>Valhalla World Cup Spinner</h3>
+                        <p>Dynamic tournament website with Discord integration for team assignments and player management. Features animated flag spinner and real-time participant tracking.</p>
+                        <div class="project-features">
+                            <span class="feature">🎯 Team Assignment</span>
+                            <span class="feature">🌍 Flag Animation</span>
+                            <span class="feature">📊 Live Tracking</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-media">
+                        <img src="img/projects/invite.png" alt="Marky Bot">
+
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Discord API</span>
+                            <span class="tag">Moderation</span>
+                            <span class="tag">Bot Development</span>
+                        </div>
+                        <h3>Marky Bot</h3>
+                        <p>Advanced moderation bot with interactive features including leaderboards, ranked matches, and automated community management tools.</p>
+                        <div class="project-features">
+                            <span class="feature">🛡️ Moderation</span>
+                            <span class="feature">🏆 Leaderboards</span>
+                            <span class="feature">⚡ Automation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-media">
+                        <img src="img/projects/bb birthday.gif" alt="Birthday Countdown">
+
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Personal</span>
+                            <span class="tag">Creative</span>
+                            <span class="tag">Animation</span>
+                        </div>
+                        <h3>Birthday Countdown</h3>
+                        <p>Personal birthday gift featuring music player, countdown timer, and special video reveal with custom animations and interactive elements.</p>
+                        <div class="project-features">
+                            <span class="feature">🎵 Music Player</span>
+                            <span class="feature">⏰ Countdown</span>
+                            <span class="feature">🎬 Video Reveal</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-media">
+                        <img src="img/projects/leadeboard.png" alt="Leaderboard System">
+
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">Database</span>
+                            <span class="tag">Real-time</span>
+                        </div>
+                        <h3>Leaderboard System</h3>
+                        <p>Real-time leaderboard system with dynamic rankings, user statistics, and competitive features for gaming communities.</p>
+                        <div class="project-features">
+                            <span class="feature">🏆 Rankings</span>
+                            <span class="feature">📈 Statistics</span>
+                            <span class="feature">⚡ Real-time</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <div class="courses-section">
-        <h3>Click below to see some courses I've taken and what I'm currently working on!</h3>
-        <button class="toggle-courses-btn" onclick="toggleCourses()">View Courses</button>
-        
-        <div id="courses-list" class="hidden">
-            <h4>📚 Courses I've Taken at UCSD</h4>
-            <ul>
-                <li>🔹 Data Structures & Algorithms</li>
-                <li>🔹 Operating Systems</li>
-                <li>🔹 Design and Analysis of Algorithms</li>
-                <li>🔹 Database Systems</li>
-                <li>🔹 Computer and Network security</li>
-                <li>🔹 Machine Learning</li>
-                <li>🔹 Design Techniques for Digital Systems</li>
-                <li>🔹 Software Engineering/Advance Software Engineering</li>
-                <li>🔹 Intro Distributed Systems </li>
-                <li>🔹 Intro to Data Science</li>
-            </ul>
-    
-            <h4>🚀 Courses I'm Currently Learning</h4>
-            <ul>
-                <li>🔹 Deep Learning (UCSD)</li>
-                <li>🔹 AWS Certified Cloud Practitioner (udemy)</li>
-                <li>🔹 React (udemy)</li>
-            </ul>
-        </div>
-    </div>
-    
+    <!-- Experience Section -->
+    <section id="experience" class="experience-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Professional Journey</span>
+                <h2>Work Experience</h2>
+                <p>My professional experience across various roles in software development and education.</p>
+            </div>
+            
+            <div class="experience-timeline">
+                <div class="timeline-item current">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                        <div class="marker-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="experience-card">
+                            <div class="experience-header">
+                                <div class="company-logo">
+                                    <img src="img/experience/transact-logo.png" alt="Transact">
+                                </div>
+                                <div class="experience-meta">
+                                    <h3>Software Engineer Intern</h3>
+                                    <p class="company">Transact Campus + cbord</p>
+                                    <p class="duration">June 2025 - August 2025</p>
+                                </div>
+                            </div>
+                            <div class="experience-body">
+                                <p>Built a comprehensive AI-powered chatbot for NetMenu using AWS Bedrock and AI agents. Developed features for real-time data retrieval, user management, and complex query handling. Presented the project to the entire development team and gained valuable experience in full-stack development and public speaking.</p>
+                                <div class="experience-highlights">
+                                    <div class="highlight-item">
+                                        <span class="highlight-icon">🤖</span>
+                                        <span>AI Chatbot Development</span>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <span class="highlight-icon">☁️</span>
+                                        <span>AWS Bedrock Integration</span>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <span class="highlight-icon">📊</span>
+                                        <span>Real-time Data Systems</span>
+                                    </div>
+                                </div>
+                                <div class="skills-gained">
+                                    <span class="skill-tag">AI/ML</span>
+                                    <span class="skill-tag">AWS Bedrock</span>
+                                    <span class="skill-tag">SDLC Life Cycle</span>
+                                    <span class="skill-tag">API Development</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                        <div class="marker-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="experience-card">
+                            <div class="experience-header">
+                                <div class="company-logo">
+                                    <img src="img/experience/UCSD health.png" alt="UC San Diego Health">
+                                </div>
+                                <div class="experience-meta">
+                                    <div class="experience-badge">Current</div>
+                                    <h3>Web Designer</h3>
+                                    <p class="company">UC San Diego Health</p>
+                                    <p class="duration">March 2025 - Present</p>
+                                </div>
+                            </div>
+                            <div class="experience-body">
+                                <p>Contributed to web development for UCSD Health's Explore Career Path Program, enhancing user experience and implementing backend database features using SQL.</p>
+                                <div class="experience-highlights">
+                                    <div class="highlight-item">
+                                        <span class="highlight-icon">🎨</span>
+                                        <span>Web Design & UX</span>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <span class="highlight-icon">💻</span>
+                                        <span>React & HTML/CSS</span>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <span class="highlight-icon">🗄️</span>
+                                        <span>SQL Database</span>
+                                    </div>
+                                </div>
+                                <div class="skills-gained">
+                                    <span class="skill-tag">Web Design</span>
+                                    <span class="skill-tag">HTML/CSS</span>
+                                    <span class="skill-tag">SQL</span>
+                                    <span class="skill-tag">UX</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                        <div class="marker-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="experience-card">
+                            <div class="experience-header">
+                                <div class="company-logo">
+                                    <img src="img/experience/valhalla_FC.png" alt="Valhalla FC">
+                                </div>
+                                <div class="experience-meta">
+                                    <div class="experience-badge">Current</div>
+                                    <h3>Freelance Software Engineer</h3>
+                                    <p class="company">Valhalla FC</p>
+                                    <p class="duration">September 2024 - Present</p>
+                                </div>
+                            </div>
+                            <div class="experience-body">
+                                <p>Developed tools and applications to enhance server growth, streamline moderation, and improve user experience for the fastest-growing FC Mobile server with 600+ active members.</p>
+                                <div class="experience-highlights">
+                                    <div class="highlight-item">
+                                        <span class="highlight-icon">🤖</span>
+                                        <span>Discord Bot Development</span>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <span class="highlight-icon">📈</span>
+                                        <span>Server Growth Tools</span>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <span class="highlight-icon">⚡</span>
+                                        <span>Automation Systems</span>
+                                    </div>
+                                </div>
+                                <div class="skills-gained">
+                                    <span class="skill-tag">DevOps</span>
+                                    <span class="skill-tag">Discord API</span>
+                                    <span class="skill-tag">Testing</span>
+                                    <span class="skill-tag">Python</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                        <div class="marker-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="experience-card">
+                            <div class="experience-header">
+                                <div class="company-logo">
+                                    <img src="img/experience/juni_learning.png" alt="Juni Learning">
+                                </div>
+                                <div class="experience-meta">
+                                    <h3>Computer Science Tutor</h3>
+                                    <p class="company">Juni Learning</p>
+                                    <p class="duration">October 2022 - July 2025</p>
+                                </div>
+                            </div>
+                            <div class="experience-body">
+                                <p>Instructed and mentored diverse students in Computer Science, covering Java, Python, JavaScript, and C. Selected to teach advanced courses including USACO preparation.</p>
+                                <div class="experience-highlights">
+                                    <div class="highlight-item">
+                                        <span class="highlight-icon">👨‍🏫</span>
+                                        <span>Student Mentoring</span>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <span class="highlight-icon">📚</span>
+                                        <span>Advanced Courses</span>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <span class="highlight-icon">🏆</span>
+                                        <span>USACO Preparation</span>
+                                    </div>
+                                </div>
+                                <div class="skills-gained">
+                                    <span class="skill-tag">Communication</span>
+                                    <span class="skill-tag">Debugging</span>
+                                    <span class="skill-tag">Teaching</span>
+                                    <span class="skill-tag">Problem Solving</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="section-header">
+                        <span class="section-badge">About Me</span>
+                        <h2>Passionate Developer & Problem Solver</h2>
+                    </div>
+                    <div class="about-paragraphs">
+                        <p>Hello! I'm <strong>Mark Ruangrattham</strong>, a fourth-year Computer Science student with a minor in Economics at UCSD. I'm passionate about software development and technological innovation, always seeking opportunities to expand my skills and contribute to impactful projects. Currently, I work as a <strong>Web Designer for UCSD Health Extension</strong>, where I sharpen my expertise in React, HTML, and CSS, crafting intuitive and accessible web experiences. Additionally, as a <strong>Computer Science Tutor at Juni Learning</strong>, I help students strengthen their programming foundations while refining my debugging and problem-solving skills. Outside of academics, I'm an avid gamer and sports enthusiast—whether it's Minecraft, League of Legends, or FIFA, I love diving into interactive and competitive experiences. I've merged my passions for coding, gaming, and sports as a <strong>freelance Software Engineer for Valhalla FC</strong>, an online soccer gaming community. I'm eager to apply my technical expertise, problem-solving mindset, and creativity in the fast-moving world of technology—contributing to meaningful projects, tackling real-world challenges, and continuing to learn along the way.</p>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">🎓</div>
+                        <div class="stat-content">
+                            <h3>UCSD</h3>
+                            <p>Computer Science</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💼</div>
+                        <div class="stat-content">
+                            <h3>4+ Years</h3>
+                            <p>Programming Experience</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🚀</div>
+                        <div class="stat-content">
+                            <h3>10+ Projects</h3>
+                            <p>Completed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses-section">
+        <div class="container">
+            <div class="courses-content">
+                <div class="courses-header">
+                    <h3>Academic Journey</h3>
+                    <p>Explore the courses I've taken and what I'm currently learning</p>
+                </div>
+                <button class="btn btn-outline toggle-courses-btn" onclick="toggleCourses()">
+                    <span>View Courses</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6,9 12,15 18,9"></polyline>
+                    </svg>
+                </button>
+                
+                <div id="courses-list" class="courses-grid hidden">
+                    <div class="course-category">
+                        <h4>📚 Completed Courses at UCSD</h4>
+                        <div class="course-list">
+                            <div class="course-item">Data Structures & Algorithms</div>
+                            <div class="course-item">Operating Systems</div>
+                            <div class="course-item">Design and Analysis of Algorithms</div>
+                            <div class="course-item">Database Systems</div>
+                            <div class="course-item">Computer and Network Security</div>
+                            <div class="course-item">Machine Learning</div>
+                            <div class="course-item">Design Techniques for Digital Systems</div>
+                            <div class="course-item">Software Engineering</div>
+                            <div class="course-item">Intro Distributed Systems</div>
+                            <div class="course-item">Intro to Data Science</div>
+                        </div>
+                    </div>
+                    
+                    <div class="course-category">
+                        <h4>🚀 Currently Learning</h4>
+                        <div class="course-list">
+                            <div class="course-item">Deep Learning (UCSD)</div>
+                            <div class="course-item">AWS Certified Cloud Practitioner</div>
+                            <div class="course-item">Advanced React Development</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
     <section id="contact" class="contact-section">
-        <h2>Socials</h2>
-        <p>Feel free to contact me for any inquiries or collaborations. I look forward to hearing from you!</p>
-    
-        <div class="contact-icons">
-            <a href="mailto:markruangrattham@gmail.com">
-                <img src="img/icons/gmail-icon.webp" alt="Email">
-            </a>
-            <a href="https://www.linkedin.com/in/mark-ruangrattham/" target="_blank">
-                <img src="img/icons/linkedin.png" alt="LinkedIn">
-            </a>
-            <a href="https://github.com/markruangrattham" target="_blank">
-                <img src="img/icons/git.png" alt="GitHub">
-            </a>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Get In Touch</span>
+                <h2>Let's Work Together</h2>
+                <p>I'm always open to discussing new opportunities, collaborations, or just having a chat about technology.</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-methods">
+                        <a href="mailto:markruangrattham@gmail.com" class="contact-method">
+                            <div class="contact-icon">
+                                <img src="img/icons/gmail-icon.webp" alt="Email">
+                            </div>
+                            <div class="contact-details">
+                                <h4>Email</h4>
+                                <p>markruangrattham@gmail.com</p>
+                            </div>
+                        </a>
+                        
+                        <a href="https://www.linkedin.com/in/mark-ruangrattham/" target="_blank" class="contact-method">
+                            <div class="contact-icon">
+                                <img src="img/icons/linkedin.png" alt="LinkedIn">
+                            </div>
+                            <div class="contact-details">
+                                <h4>LinkedIn</h4>
+                                <p>Connect with me</p>
+                            </div>
+                        </a>
+                        
+                        <a href="https://github.com/markruangrattham" target="_blank" class="contact-method">
+                            <div class="contact-icon">
+                                <img src="img/icons/git.png" alt="GitHub">
+                            </div>
+                            <div class="contact-details">
+                                <h4>GitHub</h4>
+                                <p>View my projects</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="contact-form-container">
+                    <form class="contact-form" action="https://formspree.io/f/xpwqvoaj" method="POST" id="contactForm">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span>Send Message</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
-    
-        <form
-            class="contact-form"
-            action="https://formspree.io/f/xpwqvoaj"
-            method="POST"
-            id="contactForm"
-            >
-
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
     </section>
-    
-    
-    
-    
-    <footer>
-        &copy; 2025 Mark's Portfolio • <i>Last Updated: 4/28/2025</i>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p>&copy; 2025 Mark Ruangrattham. All rights reserved.</p>
+                    <p><i>Last Updated: August 8, 2025</i></p>
+                </div>
+                <div class="footer-links">
+                    <a href="#hero">Home</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#experience">Experience</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+        </div>
     </footer>
+
+    <script src="src/script.js"></script>
 </body>
 </html>
