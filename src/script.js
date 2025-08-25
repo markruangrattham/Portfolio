@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Render shared components first
+    renderNavbar();
+
     // Initialize all components
     initializeProjectSlider();
     initializeMobileNavigation();
@@ -10,6 +13,39 @@ document.addEventListener("DOMContentLoaded", function () {
     initializeImageModal();
     initializeLastUpdatedFooter();
 });
+
+// Reusable Navbar Renderer
+function renderNavbar() {
+    const mount = document.getElementById('navbarMount');
+    if (!mount) return;
+
+    const isHome = /(^|\/)index\.html$/.test(location.pathname) || location.pathname.endsWith('/') || !!document.getElementById('hero');
+
+    const link = (hashOrPath) => isHome ? `#${hashOrPath}` : `index.html#${hashOrPath}`;
+
+    const isBlog = location.pathname.includes('blog');
+
+    const navHtml = `
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="${isHome ? '#hero' : 'index.html'}" class="logo">
+                <span class="logo-text">Mark Ruangrattham</span>
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+            <ul class="nav-links">
+                <li><a href="${link('hero')}">Home</a></li>
+                <li><a href="${link('skills')}">Skills</a></li>
+                <li><a href="${link('projects')}">Projects</a></li>
+                <li><a href="${link('experience')}">Experience</a></li>
+                <li><a href="blog.html" class="${isBlog ? 'active' : ''}">Blog</a></li>
+                <li><a href="${link('about')}">About</a></li>
+                <li><a href="${link('contact')}">Contact</a></li>
+            </ul>
+        </div>
+    </nav>`;
+
+    mount.innerHTML = navHtml;
+}
 
 // Project Slider Functionality
 function initializeProjectSlider() {
