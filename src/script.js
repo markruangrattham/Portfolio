@@ -134,26 +134,45 @@ function initializeMobileNavigation() {
 function initializeSmoothScrolling() {
     document.querySelectorAll('.nav-links a').forEach(anchor => {
         anchor.addEventListener('click', function(event) {
+            const href = this.getAttribute('href') || '';
+
+            // Only intercept in-page anchors (e.g., #skills) or same-page index anchors (index.html#skills when already on home)
+            const onHome = /(^|\/)index\.html$/.test(location.pathname) || location.pathname.endsWith('/');
+            const isHashLink = href.startsWith('#');
+            const isIndexHashLink = href.startsWith('index.html#') && onHome;
+
+            if (!isHashLink && !isIndexHashLink) {
+                // Normal navigation (e.g., blog.html, external links, or index.html# when not on home)
+                // Close mobile menu then navigate explicitly to avoid any interference
+                const navLinks = document.querySelector('.nav-links');
+                const navToggle = document.querySelector('.nav-toggle');
+                if (navLinks && navToggle) {
+                    navLinks.classList.remove('active');
+                    navToggle.classList.remove('open');
+                    navToggle.innerHTML = '&#9776;';
+                }
+                // Let default proceed, but also set location to be safe
+                // Use setTimeout to allow click ripple if any
+                setTimeout(() => { window.location.href = href; }, 0);
+                return;
+            }
+
             event.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
+            const targetId = isHashLink ? href.substring(1) : href.split('#')[1];
             const targetSection = document.getElementById(targetId);
-            
+
             if (targetSection) {
                 const offsetTop = targetSection.offsetTop - 80; // Account for fixed navbar
-                
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
+                window.scrollTo({ top: offsetTop, behavior: 'smooth' });
             }
-            
+
             // Close mobile menu after clicking a link
-            const navLinks = document.querySelector(".nav-links");
-            const navToggle = document.querySelector(".nav-toggle");
+            const navLinks = document.querySelector('.nav-links');
+            const navToggle = document.querySelector('.nav-toggle');
             if (navLinks && navToggle) {
-                navLinks.classList.remove("active");
-                navToggle.classList.remove("open");
-                navToggle.innerHTML = "&#9776;";
+                navLinks.classList.remove('active');
+                navToggle.classList.remove('open');
+                navToggle.innerHTML = '&#9776;';
             }
         });
     });
