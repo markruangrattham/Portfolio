@@ -1983,3 +1983,37 @@ p {
     transform: scale(1.02);
     box-shadow: var(--shadow-xl);
 }
+
+.image-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+.image-modal.open { display: flex; }
+.image-modal img {
+    max-width: 90vw;
+    max-height: 85vh;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-2xl);
+}
+.image-modal .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    padding: 8px 12px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+}
+
+.image-modal .modal-video{
+    max-width: 90vw;
+    max-height: 85vh;
+}

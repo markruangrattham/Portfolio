@@ -257,7 +257,7 @@
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-media">
-                        <video autoplay muted loop playsinline>
+                        <video class="modal-trigger" data-modal-video="https://i.gyazo.com/280b4faee9871bb01a7395b3ae29c89b.mp4" autoplay muted loop playsinline>
                             <source src="https://i.gyazo.com/280b4faee9871bb01a7395b3ae29c89b.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -289,7 +289,7 @@
 
                 <div class="project-card">
                     <div class="project-media">
-                        <img src="img/projects/flag_spinner.gif" alt="Valhalla World Cup Spinner">
+                        <img src="img/projects/flag_spinner.gif" alt="Valhalla World Cup Spinner" class="modal-trigger" data-modal-image="img/projects/flag_spinner.gif">
 
                     </div>
                     <div class="project-content">
@@ -311,7 +311,7 @@
 
                 <div class="project-card">
                     <div class="project-media">
-                        <img src="img/projects/invite.png" alt="Marky Bot">
+                        <img src="img/projects/invite.png" alt="Marky Bot" class="modal-trigger" data-modal-image="img/projects/invite.png">
 
                     </div>
                     <div class="project-content">
@@ -333,7 +333,7 @@
 
                 <div class="project-card">
                     <div class="project-media">
-                        <img src="img/projects/bb birthday.gif" alt="Birthday Countdown">
+                        <img src="img/projects/bb birthday.gif" alt="Birthday Countdown" class="modal-trigger" data-modal-image="img/projects/bb birthday.gif">
 
                     </div>
                     <div class="project-content">
@@ -355,7 +355,7 @@
 
                 <div class="project-card">
                     <div class="project-media">
-                        <img src="img/projects/leadeboard.png" alt="Leaderboard System">
+                        <img src="img/projects/leadeboard.png" alt="Leaderboard System" class="modal-trigger" data-modal-image="img/projects/leadeboard.png">
 
                     </div>
                     <div class="project-content">
@@ -371,6 +371,49 @@
                             <span class="feature">🏆 Rankings</span>
                             <span class="feature">📈 Statistics</span>
                             <span class="feature">⚡ Real-time</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-media">
+                        <img src="img/projects/logo.png" alt="FÚTBOL DEX" class="modal-trigger" data-modal-image="img/projects/logo.png">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="tag">Google Cloud</span>
+                            <span class="tag">Django</span>
+                            <span class="tag">PostgreSQL</span>
+                            <span class="tag">Discord API</span>
+                        </div>
+                        <h3>FÚTBOL DEX</h3>
+                        <p>Currently in beta with 10 active users; public release scheduled for September 2025. Backend powered by Django on Google Cloud App Engine with JWT-based authentication, PostgreSQL persistence, and Discord API integration for community features.</p>
+                        <div class="project-features">
+                            <span class="feature">🔐 JWT Auth</span>
+                            <span class="feature">☁️ App Engine Deploy</span>
+                            <span class="feature">🗄️ PostgreSQL</span>
+                            <span class="feature">🤖 Discord Integration</span>
+                            <span class="feature">🧪 Beta Testing</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-media">
+                        <img src="img/projects/leafybucks.png" alt="LeafyBucks Expense Tracker" class="modal-trigger" data-modal-image="img/projects/leafybucks.png">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Firebase</span>
+                            <span class="tag">Auth</span>
+                            <span class="tag">CSV Export</span>
+                        </div>
+                        <h3>LeafyBucks Expense Tracker</h3>
+                        <p>Full‑stack expense and subscription tracker with seamless CRUD, recurring subscription management, and a monthly insights dashboard. Firebase data model with per‑user subcollections and Auth‑scoped security rules.</p>
+                        <div class="project-features">
+                            <span class="feature">✅ Easy to use</span>
+                            <span class="feature">🧭 Clean, simple UI</span>
+                            <span class="feature">⚡ Quick add expense</span>
+                            <span class="feature">📈 Clear monthly insights</span>
                         </div>
                     </div>
                 </div>
@@ -728,7 +771,7 @@
             <div class="footer-content">
                 <div class="footer-info">
                     <p>&copy; 2025 Mark Ruangrattham. All rights reserved.</p>
-                    <p><i>Last Updated: August 8, 2025</i></p>
+                    <p><i data-last-updated>Last Updated:</i></p>
                 </div>
                 <div class="footer-links">
                     <a href="#hero">Home</a>
@@ -742,6 +785,12 @@
             </div>
         </div>
     </footer>
+
+    <div id="imageModal" class="image-modal" aria-hidden="true">
+        <button class="close-btn" aria-label="Close">Close ✕</button>
+        <img src="" alt="Expanded preview" class="modal-image">
+        <video class="modal-video" controls playsinline style="display:none; max-width:90vw; max-height:85vh; border-radius:16px; box-shadow: var(--shadow-2xl);"></video>
+    </div>
 
     <script src="src/script.js"></script>
 </body>

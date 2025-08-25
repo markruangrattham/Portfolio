@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
     initializeExperienceToggles();
     initializeScrollAnimations();
     initializeCoursesToggle();
+    initializeImageModal();
+    initializeLastUpdatedFooter();
 });
 
 // Project Slider Functionality
@@ -14,6 +16,12 @@ function initializeProjectSlider() {
     let currentSlide = 0;
     const slides = document.querySelectorAll(".project-slide");
     const totalSlides = slides.length;
+
+    // If there are no slides on this page, safely exit
+    if (totalSlides === 0) {
+        return;
+    }
+
     const prevBtn = document.querySelector(".prev-btn");
     const nextBtn = document.querySelector(".next-btn");
 
@@ -21,12 +29,10 @@ function initializeProjectSlider() {
         slides.forEach((slide, i) => {
             slide.style.display = i === index ? "grid" : "none";
         });
-        
-        // Add fade-in animation
         const currentSlideElement = slides[index];
+        if (!currentSlideElement) return;
         currentSlideElement.style.opacity = "0";
         currentSlideElement.style.transform = "translateY(20px)";
-        
         setTimeout(() => {
             currentSlideElement.style.transition = "all 0.5s ease-out";
             currentSlideElement.style.opacity = "1";
@@ -47,8 +53,6 @@ function initializeProjectSlider() {
     if (prevBtn && nextBtn) {
         prevBtn.addEventListener("click", prevSlide);
         nextBtn.addEventListener("click", nextSlide);
-        
-        // Add keyboard navigation
         document.addEventListener("keydown", function(event) {
             if (event.key === "ArrowLeft") {
                 prevSlide();
@@ -58,7 +62,6 @@ function initializeProjectSlider() {
         });
     }
 
-    // Show the first slide initially
     showSlide(currentSlide);
 }
 
@@ -346,3 +349,85 @@ window.addEventListener('load', function() {
         element.classList.add('loaded');
     });
 });
+
+function initializeImageModal() {
+    const modal = document.getElementById('imageModal');
+    if (!modal) return;
+
+    const modalImg = modal.querySelector('.modal-image');
+    const modalVideo = modal.querySelector('.modal-video');
+    const closeBtn = modal.querySelector('.close-btn');
+
+    // Attach for image triggers
+    document.querySelectorAll('img.modal-trigger').forEach(img => {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', () => {
+            const src = img.getAttribute('data-modal-image') || img.src;
+            modalVideo.style.display = 'none';
+            modalVideo.src = '';
+            modalImg.src = src;
+            modalImg.style.display = 'block';
+            modal.classList.add('open');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    // Attach for video triggers
+    document.querySelectorAll('[data-modal-video]').forEach(el => {
+        el.style.cursor = 'zoom-in';
+        el.addEventListener('click', () => {
+            const src = el.getAttribute('data-modal-video');
+            modalImg.style.display = 'none';
+            modalImg.src = '';
+            modalVideo.src = src;
+            modalVideo.style.display = 'block';
+            modal.classList.add('open');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            // Autoplay when opened
+            modalVideo.play().catch(() => {});
+        });
+    });
+
+    function closeModal() {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        modalImg.src = '';
+        modalVideo.pause();
+        modalVideo.currentTime = 0;
+        modalVideo.src = '';
+        document.body.style.overflow = '';
+    }
+
+    closeBtn?.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    });
+}
+
+// Auto-fill "Last Updated" in footer across all pages
+function initializeLastUpdatedFooter() {
+    const targets = document.querySelectorAll('.footer .footer-info i, [data-last-updated]');
+    if (!targets.length) return;
+
+    const date = new Date();
+    const months = [
+        'January','February','March','April','May','June',
+        'July','August','September','October','November','December'
+    ];
+    const day = date.getDate();
+    const formatted = `${months[date.getMonth()]} ${addOrdinal(day)}, ${date.getFullYear()}`;
+
+    targets.forEach(el => {
+        el.textContent = `Last Updated: ${formatted}`;
+    });
+}
+
+function addOrdinal(n) {
+    const s = ["th", "st", "nd", "rd"], v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
