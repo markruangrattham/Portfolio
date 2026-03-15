@@ -1133,9 +1133,10 @@ p {
 }
 
 .about-stats {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+    align-content: start;
 }
 
 .stat-card {
@@ -1143,7 +1144,7 @@ p {
     backdrop-filter: blur(20px);
     border: 2px solid rgba(220, 38, 38, 0.2);
     border-radius: var(--radius-xl);
-    padding: var(--space-xl);
+    padding: var(--space-lg);
     text-align: center;
     box-shadow: var(--shadow-lg);
     transition: var(--transition-normal);
