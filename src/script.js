@@ -298,18 +298,16 @@ function initializeScrollAnimations() {
 function initializeCoursesToggle() {
     const toggleBtn = document.querySelector(".toggle-courses-btn");
     const courseList = document.getElementById("courses-list");
-    
+
     if (toggleBtn && courseList) {
         toggleBtn.addEventListener("click", function() {
-            const isVisible = courseList.style.display === "block";
-            
-            if (isVisible) {
-                courseList.style.display = "none";
-                toggleBtn.textContent = "View Courses";
+            const isHidden = courseList.classList.contains("hidden");
+            if (isHidden) {
+                courseList.classList.remove("hidden");
+                toggleBtn.querySelector("span").textContent = "Hide Courses";
             } else {
-                courseList.style.display = "block";
-                courseList.classList.add("show");
-                toggleBtn.textContent = "Hide Courses";
+                courseList.classList.add("hidden");
+                toggleBtn.querySelector("span").textContent = "View Courses";
             }
         });
     }
@@ -382,17 +380,15 @@ function toggleDetails(element) {
 function toggleCourses() {
     const toggleBtn = document.querySelector(".toggle-courses-btn");
     const courseList = document.getElementById("courses-list");
-    
+
     if (courseList && toggleBtn) {
-        const isVisible = courseList.style.display === "block";
-        
-        if (isVisible) {
-            courseList.style.display = "none";
-            toggleBtn.textContent = "View Courses";
+        const isHidden = courseList.classList.contains("hidden");
+        if (isHidden) {
+            courseList.classList.remove("hidden");
+            toggleBtn.querySelector("span").textContent = "Hide Courses";
         } else {
-            courseList.style.display = "block";
-            courseList.classList.add("show");
-            toggleBtn.textContent = "Hide Courses";
+            courseList.classList.add("hidden");
+            toggleBtn.querySelector("span").textContent = "View Courses";
         }
     }
 }
