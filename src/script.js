@@ -31,10 +31,11 @@ function renderNavbar() {
     const isBlog = location.pathname.includes('blog');
 
     const navHtml = `
-    <nav class="navbar">
+    <nav class="navbar" id="mainNavbar">
         <div class="nav-container">
             <a href="${isHome ? '#hero' : 'index.html'}" class="logo">
-                <span class="logo-text">Mark Ruangrattham</span>
+                <div class="logo-mark">MR</div>
+                <span class="logo-name">Mark<span class="logo-dot">.</span></span>
             </a>
             <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
             <ul class="nav-links">
@@ -285,18 +286,27 @@ function initializeScrollAnimations() {
     // Navbar scroll effect
     let lastScrollTop = 0;
     const navbar = document.querySelector('.navbar');
-    
+
     window.addEventListener('scroll', () => {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
+
+        // Toggle white background once user scrolls past hero
+        if (navbar) {
+            if (scrollTop > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+
         if (scrollTop > lastScrollTop && scrollTop > 100) {
             // Scrolling down
-            navbar.style.transform = 'translateY(-100%)';
+            if (navbar) navbar.style.transform = 'translateY(-100%)';
         } else {
             // Scrolling up
-            navbar.style.transform = 'translateY(0)';
+            if (navbar) navbar.style.transform = 'translateY(0)';
         }
-        
+
         lastScrollTop = scrollTop;
     });
 }
