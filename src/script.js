@@ -12,6 +12,11 @@ document.addEventListener("DOMContentLoaded", function () {
     initializeCoursesToggle();
     initializeImageModal();
     initializeLastUpdatedFooter();
+
+    // Load dynamic sections from cloud (blog preview, and any empty experience/project containers)
+    if (typeof initPortfolioData === 'function') {
+        initPortfolioData();
+    }
 });
 
 // Reusable Navbar Renderer
@@ -270,7 +275,9 @@ function initializeScrollAnimations() {
     }, observerOptions);
     
     // Observe elements for animation
-    const animateElements = document.querySelectorAll('.skill-box, .experience-entry, .project-slide, .about-me-container');
+    const animateElements = document.querySelectorAll(
+        '.skill-category, .timeline-item, .project-card, .blog-card, .stat-card, .about-content'
+    );
     animateElements.forEach(el => {
         observer.observe(el);
     });

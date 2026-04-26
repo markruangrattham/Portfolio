@@ -205,7 +205,7 @@
             </div>
             
             <!-- Featured Project -->
-            <div class="projects-showcase">
+            <div class="projects-showcase" id="projects-showcase">
                 <div class="project-card featured">
                     <div class="project-media">
                         <iframe src="https://www.youtube.com/embed/xdCblU1HOhE" title="StudyGenius Demo" frameborder="0" allowfullscreen></iframe>
@@ -234,7 +234,7 @@
             </div>
 
             <!-- Project Grid -->
-            <div class="projects-grid">
+            <div class="projects-grid" id="projects-grid">
                 <div class="project-card">
                     <div class="project-media">
                         <video class="modal-trigger" data-modal-video="https://i.gyazo.com/280b4faee9871bb01a7395b3ae29c89b.mp4" autoplay muted loop playsinline>
@@ -410,7 +410,7 @@
                 <p>My professional experience across various roles in software development and education.</p>
             </div>
             
-            <div class="experience-timeline">
+            <div class="experience-timeline" id="experience-timeline">
                 <div class="timeline-item current">
                     <div class="timeline-marker">
                         <div class="marker-dot"></div>
@@ -588,6 +588,23 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Preview Section -->
+    <section id="blog" class="blog-preview-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Thoughts & Insights</span>
+                <h2>Blog & Articles</h2>
+                <p>Sharing my thoughts on software development, technology trends, and lessons learned from my projects.</p>
+            </div>
+            <div id="blog-container" class="blog-grid">
+                <!-- Rendered by cloud.js; falls back to DEFAULT_DATA if cloud not configured -->
+            </div>
+            <div class="blog-section-footer">
+                <a href="blog.html" class="btn btn-outline">View All Posts →</a>
             </div>
         </div>
     </section>
@@ -791,6 +808,7 @@
         <video class="modal-video" controls playsinline style="display:none; max-width:90vw; max-height:85vh; border-radius:16px; box-shadow: var(--shadow-2xl);"></video>
     </div>
 
+    <script src="js/cloud.js"></script>
     <script src="src/script.js"></script>
 </body>
 </html>

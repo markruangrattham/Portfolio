@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Mark's Portfolio</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+
+<!-- ─── Login Screen ──────────────────────────────────────────────────────── -->
+<div id="loginScreen" class="admin-login">
+  <div class="admin-login-card">
+    <h1>Admin Login</h1>
+    <form id="loginForm">
+      <div class="admin-field">
+        <label for="pwInput">Password</label>
+        <input type="password" id="pwInput" placeholder="Enter password" autocomplete="current-password">
+      </div>
+      <button type="submit" class="admin-btn admin-btn-primary" style="width:100%;justify-content:center;padding:12px">
+        Login
+      </button>
+    </form>
+    <a href="index.html" style="display:block;text-align:center;margin-top:1rem;font-size:.875rem;color:var(--text-secondary)">
+      ← Back to Portfolio
+    </a>
+  </div>
+</div>
+
+<!-- ─── Admin Panel ───────────────────────────────────────────────────────── -->
+<div id="adminPanel" class="admin-page" style="display:none">
+
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <h1 class="admin-title">Portfolio Admin</h1>
+      <div style="display:flex;align-items:center;gap:1rem">
+        <div class="admin-cloud-status">
+          <div id="statusDot" class="status-dot"></div>
+          <span id="statusText">Cloud not configured</span>
+        </div>
+        <a href="index.html" class="admin-btn admin-btn-secondary admin-btn-sm">← Site</a>
+      </div>
+    </div>
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-tab="blog">Blog Posts</button>
+      <button class="admin-tab" data-tab="experience">Experience</button>
+      <button class="admin-tab" data-tab="projects">Projects</button>
+      <button class="admin-tab" data-tab="cloud">☁️ Cloud Setup</button>
+    </div>
+  </header>
+
+  <main class="admin-main">
+
+    <!-- Blog Panel -->
+    <div id="panel-blog" class="admin-panel active"></div>
+
+    <!-- Experience Panel -->
+    <div id="panel-experience" class="admin-panel"></div>
+
+    <!-- Projects Panel -->
+    <div id="panel-projects" class="admin-panel"></div>
+
+    <!-- Cloud Setup Panel -->
+    <div id="panel-cloud" class="admin-panel">
+      <div class="admin-note">
+        <strong>How to set up JSONBin.io (free cloud storage):</strong><br>
+        1. Go to <a href="https://jsonbin.io" target="_blank">jsonbin.io</a> and create a free account.<br>
+        2. Open <strong>API Keys</strong> → generate a <em>Master Key</em>.<br>
+        3. Click <strong>CREATE BIN</strong>, paste the initial JSON below, and save.<br>
+        4. Copy the <strong>Bin ID</strong> from the URL (looks like <code>64abc123…</code>).<br>
+        5. Fill in both fields below and click <strong>Save &amp; Test</strong>.
+      </div>
+      <div class="admin-form">
+        <h2>JSONBin.io Credentials</h2>
+        <div class="admin-field">
+          <label>Master Key (X-Master-Key)</label>
+          <input type="password" id="cfgKey" placeholder="$2a$10$...">
+        </div>
+        <div class="admin-field">
+          <label>Bin ID</label>
+          <input type="text" id="cfgBin" placeholder="64abc123de456f">
+        </div>
+        <div class="admin-form-actions">
+          <button class="admin-btn admin-btn-primary" onclick="saveCloudConfig()">Save &amp; Test</button>
+          <button class="admin-btn admin-btn-secondary" onclick="initCloudWithDefaults()">Seed with Default Data</button>
+          <button class="admin-btn admin-btn-danger" onclick="clearCloudConfig()">Clear Config</button>
+        </div>
+        <div id="cloudTestResult" style="margin-top:1rem;font-size:.875rem"></div>
+      </div>
+
+      <div class="admin-form" style="margin-top:1.5rem">
+        <h2>Initial JSON (paste into your new Bin)</h2>
+        <p style="font-size:.875rem;color:var(--text-secondary);margin-bottom:.75rem">Copy this, create a new Bin at jsonbin.io, and paste it as the bin contents.</p>
+        <textarea id="initialJsonPreview" style="width:100%;height:200px;font-family:monospace;font-size:.75rem;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:.75rem;resize:vertical" readonly></textarea>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="js/cloud.js"></script>
+<script>
+// ─── Auth ────────────────────────────────────────────────────────────────────
+const ADMIN_PW = 'admin123';
+
+document.getElementById('loginForm').addEventListener('submit', e => {
+  e.preventDefault();
+  if (document.getElementById('pwInput').value === ADMIN_PW) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+    initAdmin();
+  } else {
+    alert('Incorrect password.');
+  }
+});
+
+// ─── Tab navigation ───────────────────────────────────────────────────────────
+document.querySelectorAll('.admin-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ─── In-memory data store ─────────────────────────────────────────────────────
+let DATA = JSON.parse(JSON.stringify(DEFAULT_DATA)); // deep clone
+
+async function initAdmin() {
+  updateCloudStatus();
+  populateInitialJson();
+  if (CLOUD.isReady()) {
+    const remote = await CLOUD.load();
+    if (remote) DATA = remote;
+  }
+  renderBlogPanel();
+  renderExperiencePanel();
+  renderProjectsPanel();
+  populateCfgFields();
+}
+
+// ─── Cloud status ─────────────────────────────────────────────────────────────
+function updateCloudStatus() {
+  const dot = document.getElementById('statusDot');
+  const txt = document.getElementById('statusText');
+  if (CLOUD.isReady()) {
+    dot.className = 'status-dot ok';
+    txt.textContent = 'Cloud configured';
+  } else {
+    dot.className = 'status-dot err';
+    txt.textContent = 'Cloud not configured';
+  }
+}
+
+async function saveCloudConfig() {
+  const key = document.getElementById('cfgKey').value.trim();
+  const bin = document.getElementById('cfgBin').value.trim();
+  const res = document.getElementById('cloudTestResult');
+  if (!key || !bin) { res.textContent = '⚠️ Both fields are required.'; return; }
+  CLOUD.setCfg(key, bin);
+  res.textContent = 'Testing connection…';
+  try {
+    const data = await CLOUD.load();
+    if (data) {
+      DATA = data;
+      res.innerHTML = '<span style="color:#16a34a">✅ Connected! Data loaded successfully.</span>';
+      updateCloudStatus();
+      renderBlogPanel(); renderExperiencePanel(); renderProjectsPanel();
+    } else {
+      res.innerHTML = '<span style="color:var(--primary-red)">⚠️ Connected but bin is empty — try "Seed with Default Data".</span>';
+      updateCloudStatus();
+    }
+  } catch (err) {
+    res.innerHTML = `<span style="color:var(--primary-red)">❌ ${err.message}</span>`;
+  }
+}
+
+async function initCloudWithDefaults() {
+  if (!CLOUD.isReady()) { alert('Save your cloud config first.'); return; }
+  if (!confirm('This will overwrite your current cloud data with the defaults. Continue?')) return;
+  try {
+    await CLOUD.save(DEFAULT_DATA);
+    DATA = JSON.parse(JSON.stringify(DEFAULT_DATA));
+    alert('✅ Cloud seeded with default data!');
+    renderBlogPanel(); renderExperiencePanel(); renderProjectsPanel();
+  } catch (err) { alert('Error: ' + err.message); }
+}
+
+function clearCloudConfig() {
+  if (!confirm('Remove saved cloud credentials from this browser?')) return;
+  localStorage.removeItem('pf_api_key');
+  localStorage.removeItem('pf_bin_id');
+  document.getElementById('cfgKey').value = '';
+  document.getElementById('cfgBin').value = '';
+  updateCloudStatus();
+}
+
+function populateCfgFields() {
+  const { key, bin } = CLOUD.cfg();
+  document.getElementById('cfgKey').value = key;
+  document.getElementById('cfgBin').value = bin;
+}
+
+function populateInitialJson() {
+  document.getElementById('initialJsonPreview').value = JSON.stringify(DEFAULT_DATA, null, 2);
+}
+
+// ─── Save helper ──────────────────────────────────────────────────────────────
+async function saveData(optimistic) {
+  if (!CLOUD.isReady()) return; // no cloud — edits are in-memory only
+  try {
+    await CLOUD.save(DATA);
+  } catch (err) {
+    alert('Cloud save failed: ' + err.message + '\n\nChanges are still applied locally until you refresh.');
+  }
+}
+
+// ─── Utility ──────────────────────────────────────────────────────────────────
+function genId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+function esc(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// BLOG PANEL
+// ─────────────────────────────────────────────────────────────────────────────
+
+function renderBlogPanel(editing = null) {
+  const panel = document.getElementById('panel-blog');
+  if (editing !== null) {
+    const post = editing === 'new' ? null : DATA.blogPosts.find(p => p.id === editing);
+    panel.innerHTML = buildBlogForm(post, editing);
+    return;
+  }
+  const listHtml = DATA.blogPosts.length ? DATA.blogPosts.map(p => `
+    <div class="admin-list-item">
+      <div class="admin-list-item-info">
+        <h3>${esc(p.title)}${p.featured ? '<span class="admin-badge">Featured</span>' : ''}</h3>
+        <p>${esc(p.date)} · ${esc(p.category)}</p>
+      </div>
+      <div class="admin-actions">
+        <button class="admin-btn admin-btn-secondary admin-btn-sm" onclick="renderBlogPanel('${p.id}')">Edit</button>
+        <button class="admin-btn admin-btn-danger admin-btn-sm" onclick="deleteBlogPost('${p.id}')">Delete</button>
+      </div>
+    </div>`).join('') : '<div class="admin-empty">No blog posts yet.</div>';
+
+  panel.innerHTML = `
+    <div class="admin-panel-header">
+      <h2>Blog Posts</h2>
+      <button class="admin-btn admin-btn-primary" onclick="renderBlogPanel('new')">+ Add Post</button>
+    </div>
+    ${listHtml}`;
+}
+
+function buildBlogForm(post, editingId) {
+  const v = k => post ? esc(post[k] || '') : '';
+  const vArr = k => post && Array.isArray(post[k]) ? esc(post[k].join(', ')) : '';
+  const checked = post && post.featured ? 'checked' : '';
+  return `
+    <div class="admin-form">
+      <h2>${editingId === 'new' ? 'New Blog Post' : 'Edit Blog Post'}</h2>
+      <div class="admin-form-grid">
+        <div class="admin-field full-width">
+          <label>Title</label>
+          <input type="text" id="bf-title" value="${v('title')}" placeholder="Post title">
+        </div>
+        <div class="admin-field full-width">
+          <label>Description</label>
+          <textarea id="bf-description" rows="3">${post ? esc(post.description || '') : ''}</textarea>
+        </div>
+        <div class="admin-field">
+          <label>Date</label>
+          <input type="text" id="bf-date" value="${v('date')}" placeholder="August 30, 2025">
+        </div>
+        <div class="admin-field">
+          <label>Read Time</label>
+          <input type="text" id="bf-readTime" value="${v('readTime')}" placeholder="5 min read">
+        </div>
+        <div class="admin-field">
+          <label>Category</label>
+          <input type="text" id="bf-category" value="${v('category')}" placeholder="Featured, Life Update…">
+        </div>
+        <div class="admin-field">
+          <label>Tags (comma-separated)</label>
+          <input type="text" id="bf-tags" value="${vArr('tags')}" placeholder="AI/ML, Career…">
+        </div>
+        <div class="admin-field">
+          <label>Article URL</label>
+          <input type="text" id="bf-url" value="${v('url')}" placeholder="blog-my-post.html">
+        </div>
+        <div class="admin-field">
+          <label>Image path (optional)</label>
+          <input type="text" id="bf-image" value="${v('image')}" placeholder="img/blog post/photo.png">
+        </div>
+        <div class="admin-field">
+          <label>Emoji (fallback)</label>
+          <input type="text" id="bf-emoji" value="${v('emoji')}" placeholder="🤖">
+        </div>
+        <div class="admin-field" style="display:flex;align-items:center;gap:.5rem;padding-top:1.5rem">
+          <label class="admin-checkbox-label">
+            <input type="checkbox" id="bf-featured" ${checked}> Featured post
+          </label>
+        </div>
+      </div>
+      <div class="admin-form-actions">
+        <button class="admin-btn admin-btn-primary" onclick="saveBlogPost('${editingId}')">Save</button>
+        <button class="admin-btn admin-btn-secondary" onclick="renderBlogPanel()">Cancel</button>
+      </div>
+    </div>`;
+}
+
+function saveBlogPost(editingId) {
+  const post = {
+    id: editingId === 'new' ? genId() : editingId,
+    title: document.getElementById('bf-title').value.trim(),
+    description: document.getElementById('bf-description').value.trim(),
+    date: document.getElementById('bf-date').value.trim(),
+    readTime: document.getElementById('bf-readTime').value.trim(),
+    category: document.getElementById('bf-category').value.trim(),
+    tags: document.getElementById('bf-tags').value.split(',').map(t => t.trim()).filter(Boolean),
+    url: document.getElementById('bf-url').value.trim(),
+    image: document.getElementById('bf-image').value.trim(),
+    emoji: document.getElementById('bf-emoji').value.trim(),
+    featured: document.getElementById('bf-featured').checked
+  };
+  if (!post.title) { alert('Title is required.'); return; }
+  if (editingId === 'new') {
+    DATA.blogPosts.push(post);
+  } else {
+    const i = DATA.blogPosts.findIndex(p => p.id === editingId);
+    if (i >= 0) DATA.blogPosts[i] = post;
+  }
+  saveData();
+  renderBlogPanel();
+}
+
+function deleteBlogPost(id) {
+  if (!confirm('Delete this post?')) return;
+  DATA.blogPosts = DATA.blogPosts.filter(p => p.id !== id);
+  saveData();
+  renderBlogPanel();
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// EXPERIENCE PANEL
+// ─────────────────────────────────────────────────────────────────────────────
+
+function renderExperiencePanel(editing = null) {
+  const panel = document.getElementById('panel-experience');
+  if (editing !== null) {
+    const exp = editing === 'new' ? null : DATA.experiences.find(e => e.id === editing);
+    panel.innerHTML = buildExperienceForm(exp, editing);
+    return;
+  }
+  const listHtml = DATA.experiences.length ? DATA.experiences.map(e => `
+    <div class="admin-list-item">
+      <div class="admin-list-item-info">
+        <h3>${esc(e.title)}${e.isCurrent ? '<span class="admin-badge">Current</span>' : ''}</h3>
+        <p>${esc(e.company)} · ${esc(e.duration)}</p>
+      </div>
+      <div class="admin-actions">
+        <button class="admin-btn admin-btn-secondary admin-btn-sm" onclick="renderExperiencePanel('${e.id}')">Edit</button>
+        <button class="admin-btn admin-btn-danger admin-btn-sm" onclick="deleteExperience('${e.id}')">Delete</button>
+      </div>
+    </div>`).join('') : '<div class="admin-empty">No experience entries yet.</div>';
+
+  panel.innerHTML = `
+    <div class="admin-panel-header">
+      <h2>Experience</h2>
+      <button class="admin-btn admin-btn-primary" onclick="renderExperiencePanel('new')">+ Add Entry</button>
+    </div>
+    ${listHtml}`;
+}
+
+function buildExperienceForm(exp, editingId) {
+  const v = k => exp ? esc(exp[k] || '') : '';
+  const highlights = exp && exp.highlights
+    ? exp.highlights.map(h => `${h.icon} ${h.text}`).join('\n')
+    : '';
+  const skills = exp && exp.skills ? exp.skills.join(', ') : '';
+  const checked = exp && exp.isCurrent ? 'checked' : '';
+  return `
+    <div class="admin-form">
+      <h2>${editingId === 'new' ? 'New Experience' : 'Edit Experience'}</h2>
+      <div class="admin-form-grid">
+        <div class="admin-field">
+          <label>Job Title</label>
+          <input type="text" id="ef-title" value="${v('title')}" placeholder="Software Engineer Intern">
+        </div>
+        <div class="admin-field">
+          <label>Company</label>
+          <input type="text" id="ef-company" value="${v('company')}" placeholder="Acme Corp">
+        </div>
+        <div class="admin-field">
+          <label>Duration</label>
+          <input type="text" id="ef-duration" value="${v('duration')}" placeholder="June 2025 - August 2025">
+        </div>
+        <div class="admin-field">
+          <label>Logo path (optional)</label>
+          <input type="text" id="ef-logo" value="${v('logo')}" placeholder="img/experience/logo.png">
+        </div>
+        <div class="admin-field full-width">
+          <label>Description</label>
+          <textarea id="ef-description" rows="3">${exp ? esc(exp.description || '') : ''}</textarea>
+        </div>
+        <div class="admin-field full-width">
+          <label>Highlights (one per line — start with emoji: 🤖 Highlight text)</label>
+          <textarea id="ef-highlights" rows="3" placeholder="🤖 Multi-Agent RAG System">${esc(highlights)}</textarea>
+        </div>
+        <div class="admin-field full-width">
+          <label>Skills (comma-separated)</label>
+          <input type="text" id="ef-skills" value="${esc(skills)}" placeholder="AWS Lambda, Python…">
+        </div>
+        <div class="admin-field" style="display:flex;align-items:center;gap:.5rem;padding-top:1.5rem">
+          <label class="admin-checkbox-label">
+            <input type="checkbox" id="ef-isCurrent" ${checked}> Current position
+          </label>
+        </div>
+      </div>
+      <div class="admin-form-actions">
+        <button class="admin-btn admin-btn-primary" onclick="saveExperience('${editingId}')">Save</button>
+        <button class="admin-btn admin-btn-secondary" onclick="renderExperiencePanel()">Cancel</button>
+      </div>
+    </div>`;
+}
+
+function parseHighlights(raw) {
+  return raw.split('\n').map(line => {
+    line = line.trim();
+    if (!line) return null;
+    const emojiMatch = line.match(/^(\p{Emoji_Presentation}|\p{Emoji}️)\s*(.+)$/u);
+    if (emojiMatch) return { icon: emojiMatch[1], text: emojiMatch[2].trim() };
+    return { icon: '•', text: line };
+  }).filter(Boolean);
+}
+
+function saveExperience(editingId) {
+  const entry = {
+    id: editingId === 'new' ? genId() : editingId,
+    title: document.getElementById('ef-title').value.trim(),
+    company: document.getElementById('ef-company').value.trim(),
+    duration: document.getElementById('ef-duration').value.trim(),
+    isCurrent: document.getElementById('ef-isCurrent').checked,
+    logo: document.getElementById('ef-logo').value.trim(),
+    description: document.getElementById('ef-description').value.trim(),
+    highlights: parseHighlights(document.getElementById('ef-highlights').value),
+    skills: document.getElementById('ef-skills').value.split(',').map(s => s.trim()).filter(Boolean)
+  };
+  if (!entry.title) { alert('Title is required.'); return; }
+  if (editingId === 'new') {
+    DATA.experiences.push(entry);
+  } else {
+    const i = DATA.experiences.findIndex(e => e.id === editingId);
+    if (i >= 0) DATA.experiences[i] = entry;
+  }
+  saveData();
+  renderExperiencePanel();
+}
+
+function deleteExperience(id) {
+  if (!confirm('Delete this entry?')) return;
+  DATA.experiences = DATA.experiences.filter(e => e.id !== id);
+  saveData();
+  renderExperiencePanel();
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PROJECTS PANEL
+// ─────────────────────────────────────────────────────────────────────────────
+
+function renderProjectsPanel(editing = null) {
+  const panel = document.getElementById('panel-projects');
+  if (editing !== null) {
+    const proj = editing === 'new' ? null : DATA.projects.find(p => p.id === editing);
+    panel.innerHTML = buildProjectForm(proj, editing);
+    return;
+  }
+  const listHtml = DATA.projects.length ? DATA.projects.map(p => `
+    <div class="admin-list-item">
+      <div class="admin-list-item-info">
+        <h3>${esc(p.title)}${p.featured ? '<span class="admin-badge">Featured</span>' : ''}</h3>
+        <p>${esc(p.tags.join(', '))}</p>
+      </div>
+      <div class="admin-actions">
+        <button class="admin-btn admin-btn-secondary admin-btn-sm" onclick="renderProjectsPanel('${p.id}')">Edit</button>
+        <button class="admin-btn admin-btn-danger admin-btn-sm" onclick="deleteProject('${p.id}')">Delete</button>
+      </div>
+    </div>`).join('') : '<div class="admin-empty">No projects yet.</div>';
+
+  panel.innerHTML = `
+    <div class="admin-panel-header">
+      <h2>Projects</h2>
+      <button class="admin-btn admin-btn-primary" onclick="renderProjectsPanel('new')">+ Add Project</button>
+    </div>
+    ${listHtml}`;
+}
+
+function buildProjectForm(proj, editingId) {
+  const v = k => proj ? esc(proj[k] || '') : '';
+  const tags = proj && proj.tags ? proj.tags.join(', ') : '';
+  const features = proj && proj.features ? proj.features.join('\n') : '';
+  const stats = proj && proj.stats ? proj.stats.map(s => `${s.number}|${s.label}`).join('\n') : '';
+  const mediaType = proj ? (proj.mediaType || 'image') : 'image';
+  const checked = proj && proj.featured ? 'checked' : '';
+  return `
+    <div class="admin-form">
+      <h2>${editingId === 'new' ? 'New Project' : 'Edit Project'}</h2>
+      <div class="admin-form-grid">
+        <div class="admin-field full-width">
+          <label>Title</label>
+          <input type="text" id="pf-title" value="${v('title')}" placeholder="My Awesome Project">
+        </div>
+        <div class="admin-field full-width">
+          <label>Description</label>
+          <textarea id="pf-description" rows="3">${proj ? esc(proj.description || '') : ''}</textarea>
+        </div>
+        <div class="admin-field full-width">
+          <label>Tags (comma-separated)</label>
+          <input type="text" id="pf-tags" value="${esc(tags)}" placeholder="React, Firebase…">
+        </div>
+        <div class="admin-field">
+          <label>Media Type</label>
+          <select id="pf-mediaType">
+            <option value="image" ${mediaType === 'image' ? 'selected' : ''}>Image / GIF</option>
+            <option value="video" ${mediaType === 'video' ? 'selected' : ''}>Video (URL)</option>
+            <option value="youtube" ${mediaType === 'youtube' ? 'selected' : ''}>YouTube Embed</option>
+          </select>
+        </div>
+        <div class="admin-field">
+          <label>Media Source (URL or path)</label>
+          <input type="text" id="pf-mediaSrc" value="${v('mediaSrc')}" placeholder="img/projects/demo.gif">
+        </div>
+        <div class="admin-field full-width">
+          <label>Feature badges (one per line — e.g. 🌐 Full-Stack App)</label>
+          <textarea id="pf-features" rows="3" placeholder="🌐 Full-Stack App">${esc(features)}</textarea>
+        </div>
+        <div class="admin-field full-width">
+          <label>Stats (one per line — number|label, e.g. 900+|Active Users) — overrides features</label>
+          <textarea id="pf-stats" rows="2" placeholder="900+|Active Users">${esc(stats)}</textarea>
+        </div>
+        <div class="admin-field" style="display:flex;align-items:center;gap:.5rem;padding-top:1.5rem">
+          <label class="admin-checkbox-label">
+            <input type="checkbox" id="pf-featured" ${checked}> Featured project (shown large)
+          </label>
+        </div>
+      </div>
+      <div class="admin-form-actions">
+        <button class="admin-btn admin-btn-primary" onclick="saveProject('${editingId}')">Save</button>
+        <button class="admin-btn admin-btn-secondary" onclick="renderProjectsPanel()">Cancel</button>
+      </div>
+    </div>`;
+}
+
+function parseStats(raw) {
+  return raw.split('\n').map(line => {
+    const [number, ...rest] = line.trim().split('|');
+    if (!number) return null;
+    return { number: number.trim(), label: rest.join('|').trim() };
+  }).filter(Boolean);
+}
+
+function saveProject(editingId) {
+  const statsRaw = document.getElementById('pf-stats').value.trim();
+  const featuresRaw = document.getElementById('pf-features').value.trim();
+  const proj = {
+    id: editingId === 'new' ? genId() : editingId,
+    title: document.getElementById('pf-title').value.trim(),
+    description: document.getElementById('pf-description').value.trim(),
+    tags: document.getElementById('pf-tags').value.split(',').map(t => t.trim()).filter(Boolean),
+    featured: document.getElementById('pf-featured').checked,
+    mediaType: document.getElementById('pf-mediaType').value,
+    mediaSrc: document.getElementById('pf-mediaSrc').value.trim(),
+    features: featuresRaw ? featuresRaw.split('\n').map(l => l.trim()).filter(Boolean) : undefined,
+    stats: statsRaw ? parseStats(statsRaw) : undefined
+  };
+  if (proj.stats && proj.stats.length === 0) delete proj.stats;
+  if (proj.features && proj.features.length === 0) delete proj.features;
+  if (!proj.title) { alert('Title is required.'); return; }
+  if (editingId === 'new') {
+    DATA.projects.push(proj);
+  } else {
+    const i = DATA.projects.findIndex(p => p.id === editingId);
+    if (i >= 0) DATA.projects[i] = proj;
+  }
+  saveData();
+  renderProjectsPanel();
+}
+
+function deleteProject(id) {
+  if (!confirm('Delete this project?')) return;
+  DATA.projects = DATA.projects.filter(p => p.id !== id);
+  saveData();
+  renderProjectsPanel();
+}
+</script>
+</body>
+</html>
