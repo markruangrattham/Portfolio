@@ -788,6 +788,27 @@ p {
     box-shadow: 0 12px 36px rgba(220, 38, 38, 0.18), 0 3px 12px rgba(0,0,0,0.10);
 }
 
+.project-media-placeholder {
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1e293b, #334155);
+    border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+    transition: transform 0.4s cubic-bezier(.4,2,.6,1);
+}
+
+.project-media-placeholder .placeholder-emoji {
+    font-size: 56px;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35));
+}
+
+.project-card:hover .project-media-placeholder {
+    transform: scale(1.02);
+}
+
 .project-card.featured .project-media img,
 .project-card.featured .project-media video,
 .project-card.featured .project-media iframe {
@@ -1442,6 +1463,16 @@ p {
     width: 40px;
     height: 40px;
     border-radius: var(--radius-md);
+}
+
+.contact-icon svg {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: var(--radius-md);
+    background: var(--glass-bg);
+    color: var(--primary-red);
 }
 
 .contact-details h4 {
