@@ -1,0 +1,14 @@
+{
+  "name": "portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Mark Ruangrattham's portfolio site with an LLM-powered chat assistant",
+  "scripts": {
+    "dev": "node scripts/dev.js",
+    "dev:mock": "node scripts/dev.js --mock"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
