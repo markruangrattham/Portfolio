@@ -1,0 +1,284 @@
+// POST /api/chat — Vercel serverless function that streams an LLM reply.
+//
+// Works with any OpenAI-compatible "chat completions" endpoint, which covers all
+// the free options. Pick a provider by setting three env vars on Vercel:
+//
+//   Provider              LLM_BASE_URL                                             LLM_MODEL (example)
+//   Groq (default, free)  https://api.groq.com/openai/v1                           openai/gpt-oss-120b
+//   Google Gemini (free)  https://generativelanguage.googleapis.com/v1beta/openai  gemini-2.5-flash
+//   OpenRouter (free)     https://openrouter.ai/api/v1                             any model id ending in ":free"
+//   Cloudflare Workers AI https://api.cloudflare.com/client/v4/accounts/<id>/ai/v1  @cf/meta/llama-3.3-70b-instruct-fp8-fast
+//   Anthropic (paid)      https://api.anthropic.com/v1                             claude-sonnet-5
+//
+//   LLM_API_KEY  — the provider's API key (required)
+//
+// Request body:  { "messages": [{ "role": "user" | "assistant", "content": "..." }, ...],
+//                  "turnstileToken": "..." }   (required when TURNSTILE_SECRET_KEY is set)
+// Response:      text/plain stream of the assistant's reply (chunks as they arrive)
+// Errors:        JSON { "error": "..." } with a 4xx / 5xx status
+//
+// Optional env vars:
+//   TURNSTILE_SECRET_KEY — Cloudflare Turnstile secret. When set, every request must carry a
+//                          token minted by the Turnstile widget on the portfolio page, which
+//                          proves it came from a real browser on the allowed hostname.
+//   CHAT_ALLOWED_ORIGINS — comma-separated extra origins allowed to call this route.
+
+import { SYSTEM_PROMPT } from "./_context.js";
+
+const BASE_URL = (process.env.LLM_BASE_URL || "https://api.groq.com/openai/v1").replace(/\/+$/, "");
+const MODEL = process.env.LLM_MODEL || "openai/gpt-oss-120b"; // llama-3.3-70b-versatile was retired Aug 2026
+const API_KEY = process.env.LLM_API_KEY || "";
+const TURNSTILE_SECRET = process.env.TURNSTILE_SECRET_KEY || "";
+const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+
+const MAX_OUTPUT_TOKENS = 600;       // short chat replies; the system prompt asks for 2–4 sentences
+const MAX_MESSAGES = 30;             // turns kept from the client history
+const MAX_MESSAGE_CHARS = 2000;      // per message
+const MAX_TOTAL_CHARS = 12000;       // whole conversation
+const UPSTREAM_TIMEOUT_MS = 45_000;
+
+// Best-effort per-IP rate limit. Serverless instances don't share memory, so this
+// is a speed bump, not a wall. Tighten with Vercel's firewall if it ever matters.
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const RATE_LIMIT_MAX = 25;
+const hits = new Map();
+
+// Only the portfolio itself may call this route. Browsers always send Origin on
+// cross-site POSTs and won't let a page forge it, so this shuts out other sites.
+// (A raw curl can still fake the header; the rate limit is the backstop.)
+// scripts/dev.js adds localhost via CHAT_ALLOWED_ORIGINS for local work.
+const DEFAULT_ORIGINS = ["https://markruangrattham.github.io"];
+
+export default async function handler(req, res) {
+  const origin = req.headers.origin || "";
+  if (!allowedOrigins().has(origin)) {
+    return sendJson(res, 403, { error: "This endpoint only serves markruangrattham.github.io." });
+  }
+  applyCors(res, origin);
+
+  if (req.method === "OPTIONS") {
+    res.statusCode = 204;
+    return res.end();
+  }
+  if (req.method !== "POST") {
+    return sendJson(res, 405, { error: "Method not allowed" });
+  }
+  if (!API_KEY) {
+    return sendJson(res, 500, { error: "Chat is not configured yet (missing LLM_API_KEY)." });
+  }
+  if (isRateLimited(clientIp(req))) {
+    return sendJson(res, 429, { error: "Whoa, that's a lot of questions. Give it a few minutes and try again." });
+  }
+
+  let body;
+  try {
+    body = await readJsonBody(req);
+  } catch {
+    return sendJson(res, 400, { error: "Invalid JSON body" });
+  }
+
+  const history = sanitizeMessages(body?.messages);
+  if (!history) {
+    return sendJson(res, 400, { error: "Send { messages: [{ role, content }] } with at least one user message." });
+  }
+
+  if (TURNSTILE_SECRET) {
+    const verdict = await verifyTurnstile(body?.turnstileToken, clientIp(req));
+    if (!verdict.ok) {
+      return sendJson(res, 403, { error: verdict.error });
+    }
+  }
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
+
+  let upstream;
+  try {
+    upstream = await fetch(`${BASE_URL}/chat/completions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        stream: true,
+        max_tokens: MAX_OUTPUT_TOKENS,
+        temperature: 0.35, // low: the persona should stick to the facts, not improvise
+        messages: [
+          { role: "system", content: `${SYSTEM_PROMPT}\n\nToday's date is ${new Date().toISOString().slice(0, 10)}.` },
+          ...history,
+        ],
+      }),
+      signal: controller.signal,
+    });
+  } catch (error) {
+    clearTimeout(timer);
+    console.error("upstream fetch failed:", error);
+    return sendJson(res, 502, { error: "The assistant couldn't reach its brain. Please try again." });
+  }
+
+  if (!upstream.ok) {
+    clearTimeout(timer);
+    const detail = await upstream.text().catch(() => "");
+    console.error(`upstream ${upstream.status}:`, detail.slice(0, 500));
+    return sendJson(res, statusFor(upstream.status), { error: messageFor(upstream.status) });
+  }
+
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "text/plain; charset=utf-8");
+  res.setHeader("Cache-Control", "no-cache, no-transform");
+  res.setHeader("X-Content-Type-Options", "nosniff");
+
+  let wroteAnything = false;
+  try {
+    for await (const text of readSseText(upstream.body)) {
+      wroteAnything = true;
+      res.write(text);
+    }
+  } catch (error) {
+    console.error("stream error:", error);
+    if (!wroteAnything) res.write("The assistant hit a hiccup mid-reply. Please try again.");
+  } finally {
+    clearTimeout(timer);
+  }
+  if (!wroteAnything) res.write("Hmm, I came up empty. Could you rephrase that?");
+  res.end();
+}
+
+// ─── Streaming: parse OpenAI-style SSE and yield only the text deltas ─────────
+
+async function* readSseText(stream) {
+  const decoder = new TextDecoder();
+  let buffer = "";
+  for await (const chunk of stream) {
+    buffer += decoder.decode(chunk, { stream: true });
+    let nl;
+    while ((nl = buffer.indexOf("\n")) !== -1) {
+      const line = buffer.slice(0, nl).trim();
+      buffer = buffer.slice(nl + 1);
+      if (!line.startsWith("data:")) continue;
+      const data = line.slice(5).trim();
+      if (data === "[DONE]") return;
+      let json;
+      try {
+        json = JSON.parse(data);
+      } catch {
+        continue;
+      }
+      const text = json.choices?.[0]?.delta?.content;
+      if (text) yield text;
+    }
+  }
+}
+
+// ─── Turnstile: confirm the token was minted by our widget in a real browser ──
+
+async function verifyTurnstile(token, ip) {
+  if (typeof token !== "string" || !token || token.length > 2048) {
+    return { ok: false, error: "Human check missing. Reload the page and try again." };
+  }
+  try {
+    const r = await fetch(TURNSTILE_VERIFY_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ secret: TURNSTILE_SECRET, response: token, remoteip: ip }),
+    });
+    const data = await r.json();
+    if (!data.success) {
+      console.warn("turnstile rejected:", data["error-codes"]);
+      return { ok: false, error: "Human check failed. Reload the page and try again." };
+    }
+    return { ok: true };
+  } catch (error) {
+    console.error("turnstile verify error:", error);
+    return { ok: false, error: "Couldn't complete the human check. Please try again." };
+  }
+}
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function allowedOrigins() {
+  return new Set([
+    ...DEFAULT_ORIGINS,
+    ...(process.env.CHAT_ALLOWED_ORIGINS || "").split(",").map((s) => s.trim()).filter(Boolean),
+  ]);
+}
+
+function applyCors(res, origin) {
+  res.setHeader("Access-Control-Allow-Origin", origin);
+  res.setHeader("Vary", "Origin");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Max-Age", "86400");
+}
+
+function sendJson(res, status, payload) {
+  res.statusCode = status;
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
+  res.end(JSON.stringify(payload));
+}
+
+function clientIp(req) {
+  const fwd = req.headers["x-forwarded-for"];
+  return (Array.isArray(fwd) ? fwd[0] : fwd || "").split(",")[0].trim() || req.socket?.remoteAddress || "unknown";
+}
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  const recent = (hits.get(ip) || []).filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
+  recent.push(now);
+  hits.set(ip, recent);
+  if (hits.size > 5000) hits.clear(); // keep memory bounded on long-lived instances
+  return recent.length > RATE_LIMIT_MAX;
+}
+
+async function readJsonBody(req) {
+  if (req.body !== undefined) {
+    return typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+  }
+  const chunks = [];
+  for await (const chunk of req) chunks.push(chunk);
+  const raw = Buffer.concat(chunks).toString("utf8");
+  return raw ? JSON.parse(raw) : {};
+}
+
+// Returns a clean, alternating user/assistant history ending with a user turn, or null.
+function sanitizeMessages(input) {
+  if (!Array.isArray(input)) return null;
+  const cleaned = [];
+  let total = 0;
+  for (const m of input.slice(-MAX_MESSAGES)) {
+    if (!m || (m.role !== "user" && m.role !== "assistant") || typeof m.content !== "string") continue;
+    const content = m.content.trim().slice(0, MAX_MESSAGE_CHARS);
+    if (!content) continue;
+    const last = cleaned[cleaned.length - 1];
+    if (last && last.role === m.role) {
+      last.content += "\n\n" + content; // merge same-role turns
+    } else {
+      cleaned.push({ role: m.role, content });
+    }
+    total += content.length;
+  }
+  while (cleaned.length && cleaned[0].role !== "user") cleaned.shift();
+  while (total > MAX_TOTAL_CHARS && cleaned.length > 1) {
+    total -= cleaned.shift().content.length;
+    while (cleaned.length && cleaned[0].role !== "user") total -= cleaned.shift().content.length;
+  }
+  if (!cleaned.length || cleaned[cleaned.length - 1].role !== "user") return null;
+  return cleaned;
+}
+
+function statusFor(upstreamStatus) {
+  if (upstreamStatus === 401 || upstreamStatus === 403) return 500;
+  if (upstreamStatus === 429) return 429;
+  if (upstreamStatus === 400 || upstreamStatus === 404) return 500;
+  return 502;
+}
+
+function messageFor(upstreamStatus) {
+  if (upstreamStatus === 401 || upstreamStatus === 403) return "Chat is misconfigured on the server (bad API key).";
+  if (upstreamStatus === 429) return "The assistant is a little overloaded right now (free-tier limit). Try again in a minute.";
+  if (upstreamStatus === 400 || upstreamStatus === 404) return "Chat is misconfigured on the server (unknown model or endpoint).";
+  return "The assistant hit a hiccup. Please try again.";
+}
