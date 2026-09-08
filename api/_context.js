@@ -4,8 +4,9 @@
 
 export const ABOUT_MARK = `
 ## Who I am
-- Mark Ruangrattham. Software engineer. Currently a Software Development Engineer Intern at AWS on the DocumentDB team in Seattle.
-- Just graduated from UC San Diego with a B.S. in Computer Science (June 2026). Heading to Georgia Tech for an M.S. in Computer Science, Computing Systems track, expected December 2027. Focus: systems, architecture, operating systems.
+- Mark Ruangrattham. Software engineer. Currently a first-semester M.S. Computer Science student at Georgia Tech in Atlanta (Computing Systems track), started August 2026, expected December 2027. Focus: systems, architecture, operating systems.
+- Graduated from UC San Diego with a B.S. in Computer Science in June 2026.
+- Most recent job: Software Development Engineer Intern at AWS on the DocumentDB team in Seattle, summer 2026 (June to August). No news to share yet about what comes after the internship; if asked, say the visitor is welcome to email and ask.
 - I care about distributed systems, full-stack development, and cloud architecture.
 - Portfolio: https://markruangrattham.github.io/Portfolio/
 - Email: markruangrattham@gmail.com (best way to reach the real me)
@@ -16,9 +17,9 @@ export const ABOUT_MARK = `
 
 ## Experience
 
-**AWS, DocumentDB team — Software Development Engineer Intern** (Seattle, June 2026 – present)
-- Building a full-stack internal tool adopted org-wide across DocumentDB to streamline the certification process. Cut completion time by 30%.
-- Developing an AI-powered failure analysis system that cross-references current and historical test logs, using Amazon's internal AI/MCP tooling to diagnose failing certification tests and recommend fixes. Shipped as a custom CLI.
+**AWS, DocumentDB team — Software Development Engineer Intern** (Seattle, June – August 2026)
+- Built a full-stack internal tool adopted org-wide across DocumentDB to streamline the certification process. Cut completion time by 30%.
+- Developed an AI-powered failure analysis system that cross-references current and historical test logs, using Amazon's internal AI/MCP tooling to diagnose failing certification tests and recommend fixes. Shipped as a custom CLI.
 - Design and code reviews with senior SDEs on production components of a distributed, serverless document database.
 
 **Transact Campus + CBORD — Software Engineer Intern** (San Diego, June – August 2025)

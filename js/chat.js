@@ -31,7 +31,7 @@
   const CTA_AFTER_REPLIES = 2; // show the "talk to the real me" card after this many answers
 
   const SUGGESTIONS = [
-    "What are you working on at AWS?",
+    "What did you build at AWS this summer?",
     "Tell me about the chatbot you built at Transact",
     "What's the most complex system you've shipped?",
     "Are you open to new roles?",

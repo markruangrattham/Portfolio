@@ -92,8 +92,8 @@ async function mockChat(req, res) {
     return res.end(JSON.stringify({ error: "Invalid JSON body" }));
   }
   const reply =
-    `(mock) You asked: "${lastUser.slice(0, 80)}". Right now I'm an SDE intern at AWS on the DocumentDB team, ` +
-    `and I start my M.S. at Georgia Tech after that.\n\n` +
+    `(mock) You asked: "${lastUser.slice(0, 80)}". I'm in my first semester of the M.S. at Georgia Tech, ` +
+    `fresh off a summer as an SDE intern on AWS DocumentDB.\n\n` +
     `**Certification tool** → Internal full-stack tool adopted org-wide, cut completion time 30%.\n\n` +
     `**Failure analysis CLI** → Cross-references test logs with Amazon's internal AI/MCP tooling to suggest fixes.\n\n` +
     `More in [my Transact post](blog-transact-internship.html), or email me at [markruangrattham@gmail.com](mailto:markruangrattham@gmail.com).`;
