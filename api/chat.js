@@ -104,7 +104,7 @@ export default async function handler(req, res) {
         model: MODEL,
         stream: true,
         max_tokens: MAX_OUTPUT_TOKENS,
-        temperature: 0.6,
+        temperature: 0.35, // low: the persona should stick to the facts, not improvise
         messages: [
           { role: "system", content: `${SYSTEM_PROMPT}\n\nToday's date is ${new Date().toISOString().slice(0, 10)}.` },
           ...history,
