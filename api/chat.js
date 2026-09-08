@@ -4,7 +4,7 @@
 // the free options. Pick a provider by setting three env vars on Vercel:
 //
 //   Provider              LLM_BASE_URL                                             LLM_MODEL (example)
-//   Groq (default, free)  https://api.groq.com/openai/v1                           llama-3.3-70b-versatile
+//   Groq (default, free)  https://api.groq.com/openai/v1                           openai/gpt-oss-120b
 //   Google Gemini (free)  https://generativelanguage.googleapis.com/v1beta/openai  gemini-2.5-flash
 //   OpenRouter (free)     https://openrouter.ai/api/v1                             any model id ending in ":free"
 //   Cloudflare Workers AI https://api.cloudflare.com/client/v4/accounts/<id>/ai/v1  @cf/meta/llama-3.3-70b-instruct-fp8-fast
@@ -26,7 +26,7 @@
 import { SYSTEM_PROMPT } from "./_context.js";
 
 const BASE_URL = (process.env.LLM_BASE_URL || "https://api.groq.com/openai/v1").replace(/\/+$/, "");
-const MODEL = process.env.LLM_MODEL || "llama-3.3-70b-versatile";
+const MODEL = process.env.LLM_MODEL || "openai/gpt-oss-120b"; // llama-3.3-70b-versatile was retired Aug 2026
 const API_KEY = process.env.LLM_API_KEY || "";
 const TURNSTILE_SECRET = process.env.TURNSTILE_SECRET_KEY || "";
 const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";

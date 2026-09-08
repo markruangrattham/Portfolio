@@ -245,9 +245,20 @@
     els.messages.appendChild(wrap);
   }
 
-  function addBubble(role, text, opts = {}) {
+  function makeRow(role) {
     const row = document.createElement("div");
     row.className = `pf-chat-row pf-chat-row-${role}`;
+    if (role === "assistant") {
+      // Small photo beside the first bubble of each assistant group, like a real chat.
+      const prev = els.messages.lastElementChild;
+      const continues = prev && prev.classList.contains("pf-chat-row-assistant");
+      row.innerHTML = `<img class="pf-chat-msg-avatar${continues ? " is-hidden" : ""}" src="${AVATAR_SRC}" alt="" width="28" height="28">`;
+    }
+    return row;
+  }
+
+  function addBubble(role, text, opts = {}) {
+    const row = makeRow(role);
     const bubble = document.createElement("div");
     bubble.className = "pf-chat-bubble";
     if (opts.error) bubble.classList.add("pf-chat-bubble-error");
@@ -259,9 +270,8 @@
   }
 
   function addTyping() {
-    const row = document.createElement("div");
-    row.className = "pf-chat-row pf-chat-row-assistant";
-    row.innerHTML = `<div class="pf-chat-bubble pf-chat-typing"><span></span><span></span><span></span></div>`;
+    const row = makeRow("assistant");
+    row.insertAdjacentHTML("beforeend", `<div class="pf-chat-bubble pf-chat-typing" aria-label="Typing"><span></span><span></span><span></span></div>`);
     els.messages.appendChild(row);
     scrollToBottom();
     return row;
