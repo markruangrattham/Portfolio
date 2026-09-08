@@ -2928,3 +2928,8 @@ p {
     }
     .pf-chat.open .pf-chat-launcher { display: none; }
 }
+
+/* Turnstile human check: zero-height unless Cloudflare needs a click */
+.pf-chat-turnstile { background: #fff; }
+.pf-chat-turnstile:not(:empty) { padding: 0.5rem 0.75rem 0; }
+.pf-chat-turnstile iframe { max-width: 100%; }

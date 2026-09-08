@@ -11,6 +11,16 @@
   const isLocal = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
   const CHAT_ENDPOINT = isLocal ? "/api/chat" : PRODUCTION_ENDPOINT;
 
+  // Cloudflare Turnstile (human check). The site key is public by design.
+  // Production key comes from the Cloudflare dashboard (Turnstile → widget for
+  // markruangrattham.github.io). Leave empty to disable on the client; the API
+  // must then have no TURNSTILE_SECRET_KEY either, or it will reject requests.
+  // On localhost we use Cloudflare's always-pass test key.
+  const PRODUCTION_TURNSTILE_SITE_KEY = "";
+  const TURNSTILE_SITE_KEY = isLocal ? "1x00000000000000000000AA" : PRODUCTION_TURNSTILE_SITE_KEY;
+  const TURNSTILE_SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?onload=pfTurnstileReady&render=explicit";
+  const TURNSTILE_TIMEOUT_MS = 20000;
+
   const AVATAR_SRC = "img/profilepic.jpg";
   const EMAIL = "markruangrattham@gmail.com";
   const LINKEDIN = "https://www.linkedin.com/in/mark-ruangrattham/";
@@ -79,6 +89,8 @@
 
         <div class="pf-chat-messages" aria-live="polite"></div>
 
+        <div class="pf-chat-turnstile"></div>
+
         <form class="pf-chat-form">
           <textarea class="pf-chat-input" rows="1" maxlength="2000" placeholder="Ask me anything…" aria-label="Your message"></textarea>
           <button class="pf-chat-send" type="submit" aria-label="Send message">
@@ -103,6 +115,7 @@
       send: root.querySelector(".pf-chat-send"),
       close: root.querySelector(".pf-chat-close"),
       reset: root.querySelector(".pf-chat-reset"),
+      turnstile: root.querySelector(".pf-chat-turnstile"),
     };
 
     els.launcher.addEventListener("click", () => toggle());
@@ -129,7 +142,74 @@
     els.root.classList.toggle("open", open);
     els.panel.setAttribute("aria-hidden", String(!open));
     els.launcher.setAttribute("aria-expanded", String(open));
-    if (open) setTimeout(() => els.input.focus(), 150);
+    if (open) {
+      loadTurnstile(); // start minting a token while the visitor types
+      setTimeout(() => els.input.focus(), 150);
+    }
+  }
+
+  // ─── Turnstile ──────────────────────────────────────────────────────────────
+  // Tokens are single-use and expire after a few minutes, so we keep one warm,
+  // hand it over on send, then reset the widget to mint the next one.
+
+  let turnstileWidgetId = null;
+  let turnstileToken = null;
+  let turnstileWaiters = [];
+  let turnstileLoading = false;
+
+  function loadTurnstile() {
+    if (!TURNSTILE_SITE_KEY || turnstileLoading) return;
+    turnstileLoading = true;
+    window.pfTurnstileReady = renderTurnstile;
+    if (window.turnstile) {
+      renderTurnstile();
+      return;
+    }
+    const s = document.createElement("script");
+    s.src = TURNSTILE_SCRIPT;
+    s.async = true;
+    s.defer = true;
+    document.head.appendChild(s);
+  }
+
+  function renderTurnstile() {
+    if (turnstileWidgetId !== null || !window.turnstile) return;
+    turnstileWidgetId = window.turnstile.render(els.turnstile, {
+      sitekey: TURNSTILE_SITE_KEY,
+      appearance: "interaction-only", // invisible unless Cloudflare needs a click
+      callback: (token) => {
+        turnstileToken = token;
+        const waiters = turnstileWaiters;
+        turnstileWaiters = [];
+        waiters.forEach((w) => w.resolve(token));
+      },
+      "expired-callback": () => {
+        turnstileToken = null;
+        window.turnstile.reset(turnstileWidgetId);
+      },
+      "error-callback": () => {
+        turnstileToken = null;
+      },
+    });
+  }
+
+  function getTurnstileToken() {
+    if (!TURNSTILE_SITE_KEY) return Promise.resolve(null);
+    loadTurnstile();
+    if (turnstileToken) return Promise.resolve(turnstileToken);
+    return new Promise((resolve, reject) => {
+      const waiter = { resolve };
+      turnstileWaiters.push(waiter);
+      setTimeout(() => {
+        turnstileWaiters = turnstileWaiters.filter((w) => w !== waiter);
+        reject(new Error("The human check didn't load. Please reload the page and try again."));
+      }, TURNSTILE_TIMEOUT_MS);
+    });
+  }
+
+  function consumeTurnstileToken() {
+    turnstileToken = null;
+    if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
   }
 
   function autosize() {
@@ -249,10 +329,12 @@
     let reply = "";
 
     try {
+      const turnstileTokenForSend = await getTurnstileToken();
+      consumeTurnstileToken(); // single-use: start minting the next one right away
       const res = await fetch(CHAT_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: history }),
+        body: JSON.stringify({ messages: history, turnstileToken: turnstileTokenForSend }),
       });
 
       if (!res.ok) {

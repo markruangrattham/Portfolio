@@ -49,7 +49,26 @@ The API is deployed as the Vercel project **portfolio-chat**
    (see the table at the top of `api/chat.js`), and `CHAT_ALLOWED_ORIGINS` for
    extra origins.
 
-3. **Redeploy after changing `api/`.** GitHub Pages serves the static site on
+3. **Turn on the human check (Cloudflare Turnstile).** Free. In the Cloudflare
+   dashboard go to Turnstile → Add widget, hostname `markruangrattham.github.io`,
+   widget mode Managed. You get two keys:
+   - **Site key** (public): paste it into `PRODUCTION_TURNSTILE_SITE_KEY` in
+     `js/chat.js`, commit, push.
+   - **Secret key**: add it to Vercel and redeploy:
+
+     ```bash
+     vercel env add TURNSTILE_SECRET_KEY production
+     vercel --prod
+     ```
+
+   Both halves must be set together. With the secret set, the API rejects any
+   request that doesn't carry a token minted by the widget on your page, which
+   is what stops curl and scripts even when they fake the `Origin` header.
+   On localhost the widget uses Cloudflare's always-pass test key; run the dev
+   server with `TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA` to
+   exercise the full flow without a real widget.
+
+4. **Redeploy after changing `api/`.** GitHub Pages serves the static site on
    push; the Vercel function only updates when you run `vercel --prod`.
 
 ## Local development

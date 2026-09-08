@@ -12,17 +12,24 @@
 //
 //   LLM_API_KEY  — the provider's API key (required)
 //
-// Request body:  { "messages": [{ "role": "user" | "assistant", "content": "..." }, ...] }
+// Request body:  { "messages": [{ "role": "user" | "assistant", "content": "..." }, ...],
+//                  "turnstileToken": "..." }   (required when TURNSTILE_SECRET_KEY is set)
 // Response:      text/plain stream of the assistant's reply (chunks as they arrive)
 // Errors:        JSON { "error": "..." } with a 4xx / 5xx status
 //
-// Optional: CHAT_ALLOWED_ORIGINS — comma-separated extra origins allowed to call this route.
+// Optional env vars:
+//   TURNSTILE_SECRET_KEY — Cloudflare Turnstile secret. When set, every request must carry a
+//                          token minted by the Turnstile widget on the portfolio page, which
+//                          proves it came from a real browser on the allowed hostname.
+//   CHAT_ALLOWED_ORIGINS — comma-separated extra origins allowed to call this route.
 
 import { SYSTEM_PROMPT } from "./_context.js";
 
 const BASE_URL = (process.env.LLM_BASE_URL || "https://api.groq.com/openai/v1").replace(/\/+$/, "");
 const MODEL = process.env.LLM_MODEL || "llama-3.3-70b-versatile";
 const API_KEY = process.env.LLM_API_KEY || "";
+const TURNSTILE_SECRET = process.env.TURNSTILE_SECRET_KEY || "";
+const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 
 const MAX_OUTPUT_TOKENS = 600;       // short chat replies; the system prompt asks for 2–4 sentences
 const MAX_MESSAGES = 30;             // turns kept from the client history
@@ -73,6 +80,13 @@ export default async function handler(req, res) {
   const history = sanitizeMessages(body?.messages);
   if (!history) {
     return sendJson(res, 400, { error: "Send { messages: [{ role, content }] } with at least one user message." });
+  }
+
+  if (TURNSTILE_SECRET) {
+    const verdict = await verifyTurnstile(body?.turnstileToken, clientIp(req));
+    if (!verdict.ok) {
+      return sendJson(res, 403, { error: verdict.error });
+    }
   }
 
   const controller = new AbortController();
@@ -155,6 +169,30 @@ async function* readSseText(stream) {
       const text = json.choices?.[0]?.delta?.content;
       if (text) yield text;
     }
+  }
+}
+
+// ─── Turnstile: confirm the token was minted by our widget in a real browser ──
+
+async function verifyTurnstile(token, ip) {
+  if (typeof token !== "string" || !token || token.length > 2048) {
+    return { ok: false, error: "Human check missing. Reload the page and try again." };
+  }
+  try {
+    const r = await fetch(TURNSTILE_VERIFY_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ secret: TURNSTILE_SECRET, response: token, remoteip: ip }),
+    });
+    const data = await r.json();
+    if (!data.success) {
+      console.warn("turnstile rejected:", data["error-codes"]);
+      return { ok: false, error: "Human check failed. Reload the page and try again." };
+    }
+    return { ok: true };
+  } catch (error) {
+    console.error("turnstile verify error:", error);
+    return { ok: false, error: "Couldn't complete the human check. Please try again." };
   }
 }
 
