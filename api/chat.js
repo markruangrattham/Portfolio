@@ -36,14 +36,18 @@ const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX = 25;
 const hits = new Map();
 
-const DEFAULT_ORIGINS = [
-  "https://markruangrattham.github.io",
-  "http://localhost:3000",
-  "http://127.0.0.1:3000",
-];
+// Only the portfolio itself may call this route. Browsers always send Origin on
+// cross-site POSTs and won't let a page forge it, so this shuts out other sites.
+// (A raw curl can still fake the header; the rate limit is the backstop.)
+// scripts/dev.js adds localhost via CHAT_ALLOWED_ORIGINS for local work.
+const DEFAULT_ORIGINS = ["https://markruangrattham.github.io"];
 
 export default async function handler(req, res) {
-  applyCors(res, req.headers.origin || "");
+  const origin = req.headers.origin || "";
+  if (!allowedOrigins().has(origin)) {
+    return sendJson(res, 403, { error: "This endpoint only serves markruangrattham.github.io." });
+  }
+  applyCors(res, origin);
 
   if (req.method === "OPTIONS") {
     res.statusCode = 204;
@@ -156,18 +160,19 @@ async function* readSseText(stream) {
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function applyCors(res, origin) {
-  const allowed = new Set([
+function allowedOrigins() {
+  return new Set([
     ...DEFAULT_ORIGINS,
     ...(process.env.CHAT_ALLOWED_ORIGINS || "").split(",").map((s) => s.trim()).filter(Boolean),
   ]);
-  if (origin && allowed.has(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-    res.setHeader("Vary", "Origin");
-    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    res.setHeader("Access-Control-Max-Age", "86400");
-  }
+}
+
+function applyCors(res, origin) {
+  res.setHeader("Access-Control-Allow-Origin", origin);
+  res.setHeader("Vary", "Origin");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Max-Age", "86400");
 }
 
 function sendJson(res, status, payload) {

@@ -32,6 +32,11 @@ const MIME = {
   ".woff2": "font/woff2",
 };
 
+// The API only accepts requests from the portfolio's origin; allow localhost while developing.
+process.env.CHAT_ALLOWED_ORIGINS = [process.env.CHAT_ALLOWED_ORIGINS, `http://localhost:${PORT}`, `http://127.0.0.1:${PORT}`]
+  .filter(Boolean)
+  .join(",");
+
 const chatHandler = MOCK ? mockChat : (await import("../api/chat.js")).default;
 
 http.createServer(async (req, res) => {

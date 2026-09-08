@@ -1,4 +1,6 @@
-.claude
-.git
-scripts
-README.md
+# Vercel hosts only the API. The static site stays on GitHub Pages.
+*
+!api
+!api/**
+!package.json
+!.vercelignore

@@ -23,7 +23,11 @@ browser (js/chat.js)  ──POST /api/chat──▶  Vercel function (api/chat.j
 Inspired by [santifer/cv-santiago](https://github.com/santifer/cv-santiago),
 minus the paid parts (voice mode, vector search, tracing dashboard).
 
-The static site stays on GitHub Pages. Only the `api/` function needs Vercel.
+The static site stays on GitHub Pages. Only the `api/` function is deployed to
+Vercel (`.vercelignore` excludes everything else), and it refuses any request
+whose `Origin` isn't `https://markruangrattham.github.io`. Browsers can't forge
+that header, so other sites can't piggyback on the key; the per-IP rate limit
+covers scripted abuse.
 
 ## Setup (all free)
 
