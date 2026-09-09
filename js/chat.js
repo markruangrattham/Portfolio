@@ -23,7 +23,7 @@
 
   const AVATAR_SRC = "img/profilepic.jpg";
   const EMAIL = "markruangrattham@gmail.com";
-  const LINKEDIN = "https://www.linkedin.com/in/mark-ruangrattham/";
+  const LINKEDIN = "https://www.linkedin.com/in/mark-ruang/";
 
   const STORAGE_KEY = "pf_chat_history_v2";
   const CTA_KEY = "pf_chat_cta_dismissed";
@@ -33,7 +33,7 @@
   const SUGGESTIONS = [
     "What did you build at AWS this summer?",
     "Tell me about the chatbot you built at Transact",
-    "What's the most complex system you've shipped?",
+    "How does the Valhalla FC coin economy work?",
     "Are you open to new roles?",
   ];
 

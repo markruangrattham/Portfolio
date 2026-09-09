@@ -35,7 +35,7 @@
                         Software Engineer & Web Designer
                     </p>
                     <p class="hero-description">
-                        M.S. Computer Science student at Georgia Tech (Computing Systems Track), UCSD Computer Science grad (June 2026), and former Software Development Engineer Intern at AWS (DocumentDB).
+                        Seattle-based software engineer. M.S. Computer Science student at Georgia Tech (OMSCS, Computing Systems Track), UCSD Computer Science grad (June 2026), and former Software Development Engineer Intern at AWS (DocumentDB).
                         I specialize in distributed systems, full-stack development, and cloud architecture.
                     </p>
                     <div class="hero-actions">
@@ -91,6 +91,13 @@
                     </div>
                     <div class="skill-items">
                         <div class="skill-item">
+                            <img src="img/icons/javascript.png" alt="Next.js">
+                            <div class="skill-info">
+                                <span class="skill-name">Next.js & FastAPI</span>
+                                <span class="skill-detail">App Router, NextAuth · Python APIs</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
                             <img src="img/icons/python.png" alt="Python">
                             <div class="skill-info">
                                 <span class="skill-name">Python</span>
@@ -114,8 +121,8 @@
                         <div class="skill-item">
                             <img src="img/icons/javascript.png" alt="JavaScript">
                             <div class="skill-info">
-                                <span class="skill-name">JavaScript</span>
-                                <span class="skill-detail">React, ES6+</span>
+                                <span class="skill-name">JavaScript / TypeScript</span>
+                                <span class="skill-detail">React, Next.js, ES6+</span>
                             </div>
                         </div>
                         <div class="skill-item">
@@ -123,6 +130,13 @@
                             <div class="skill-info">
                                 <span class="skill-name">SQL</span>
                                 <span class="skill-detail">Schema Design, Queries</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="img/icons/programming.png" alt="C#">
+                            <div class="skill-info">
+                                <span class="skill-name">C#</span>
+                                <span class="skill-detail">ASP.NET Core, LINQ</span>
                             </div>
                         </div>
                         <div class="skill-item">
@@ -168,7 +182,7 @@
                             <img src="img/icons/database.avif" alt="Databases">
                             <div class="skill-info">
                                 <span class="skill-name">Databases</span>
-                                <span class="skill-detail">MongoDB, PostgreSQL, SQL Server</span>
+                                <span class="skill-detail">MongoDB Atlas, SQL Server, PostgreSQL, Firestore</span>
                             </div>
                         </div>
                     </div>
@@ -299,7 +313,14 @@
                             <img src="img/icons/swe.png" alt="Developer Tooling">
                             <div class="skill-info">
                                 <span class="skill-name">Developer Tooling</span>
-                                <span class="skill-detail">Internal Platforms, CLIs</span>
+                                <span class="skill-detail">Internal Platforms, CLIs, MCP</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <img src="img/icons/fix.png" alt="API Reverse-Engineering">
+                            <div class="skill-info">
+                                <span class="skill-name">API Reverse-Engineering</span>
+                                <span class="skill-detail">Auth Flows, Hydration Payloads</span>
                             </div>
                         </div>
                     </div>
@@ -314,7 +335,7 @@
             <div class="section-header">
                 <span class="section-badge">Featured Work</span>
                 <h2>Projects I've Built</h2>
-                <p>From Discord bots to full-stack applications, here are some of my recent projects that showcase my technical skills and creativity.</p>
+                <p>From a Discord community platform with its own economy to AI-powered apps, here are some of the projects that show how I build.</p>
             </div>
             
             <!-- Featured Project -->
@@ -391,6 +412,68 @@
                 </div>
 
                 <div class="project-card">
+                    <div class="project-media project-media-placeholder">
+                        <span class="placeholder-emoji">🧾</span>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="tag">Next.js</span>
+                            <span class="tag">FastAPI</span>
+                            <span class="tag">Firestore</span>
+                            <span class="tag">Gemini Vision</span>
+                        </div>
+                        <h3>Receipt Tracker</h3>
+                        <p>Expense tracking app that reads receipts with Gemini Vision OCR and detects recurring subscriptions automatically. Next.js front end over a FastAPI backend with Firestore persistence.</p>
+                        <div class="project-features">
+                            <span class="feature">📷 Receipt OCR</span>
+                            <span class="feature">🔁 Subscription Detection</span>
+                            <span class="feature">⚡ FastAPI Backend</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-media project-media-placeholder">
+                        <span class="placeholder-emoji">📬</span>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="tag">Gmail API</span>
+                            <span class="tag">OpenRouter</span>
+                            <span class="tag">Automation</span>
+                        </div>
+                        <h3>Gmail Categorization Automation</h3>
+                        <p>Automated inbox triage pipeline that reads incoming mail through the Gmail API, classifies it with an LLM via OpenRouter, and applies labels so the important stuff surfaces on its own.</p>
+                        <div class="project-features">
+                            <span class="feature">🤖 LLM Classification</span>
+                            <span class="feature">🏷️ Auto-Labeling</span>
+                            <span class="feature">⏱️ Hands-Off Triage</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-media project-media-placeholder">
+                        <span class="placeholder-emoji">🌐</span>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="tag">Next.js 14</span>
+                            <span class="tag">NextAuth</span>
+                            <span class="tag">MongoDB Atlas</span>
+                            <span class="tag">Discord OAuth</span>
+                        </div>
+                        <h3>Valhalla FC Website</h3>
+                        <p>Public-facing display layer for the Valhalla FC platform, surfacing tournament data and community card rankings straight from the Discord bot's database, with sign-in through Discord OAuth.</p>
+                        <div class="project-features">
+                            <span class="feature">🏆 Live Tournament Data</span>
+                            <span class="feature">🃏 Card Rankings</span>
+                            <span class="feature">🔐 Discord OAuth</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
                     <div class="project-media">
                         <video class="modal-trigger" data-modal-video="https://i.gyazo.com/280b4faee9871bb01a7395b3ae29c89b.mp4" autoplay muted loop playsinline>
                             <source src="https://i.gyazo.com/280b4faee9871bb01a7395b3ae29c89b.mp4" type="video/mp4">
@@ -404,7 +487,7 @@
                             <span class="tag">Tournament Management</span>
                         </div>
                         <h3>Valhalla Bot</h3>
-                        <p>Custom Discord bot serving as the core platform for the 2,700+ member Valhalla FC community, with a real-time auction engine, tournament bracket management, and automated event workflows. Also ships a custom Discord minigame that increased server interaction by 25%.</p>
+                        <p>The core platform of the 2,700+ member Valhalla FC community I founded. Real-time auction engine, VFC Coin economy with an append-only ledger and PvP minigames, Pillow-rendered player cards, an Elo-based card-ranking system with rotating vote questions and anti-bot checks, and a RenderZ API sync pipeline into MongoDB Atlas.</p>
                         <div class="project-stats">
                             <div class="stat">
                                 <span class="stat-number">2,700+</span>
@@ -601,29 +684,29 @@
                                 <div class="experience-meta">
                                     <h3>Software Development Engineer Intern</h3>
                                     <p class="company">Amazon Web Services – DocumentDB</p>
-                                    <p class="duration">June 2026 - August 2026 · Seattle, WA</p>
+                                    <p class="duration">June 2026 - September 2026 · Seattle, WA</p>
                                 </div>
                             </div>
                             <div class="experience-body">
-                                <p>Built a full-stack internal tool adopted org-wide across DocumentDB to streamline the certification process, cutting completion time by 30%. Developed an AI-powered failure analysis system that cross-references current and historical test logs, using Amazon's internal AI/MCP tooling to diagnose failing certification tests and recommend fixes, packaged as a custom CLI tool. Collaborated with senior SDEs through design and code reviews on production components for a distributed, serverless document database.</p>
+                                <p>Built and fully owned an automated testing system that cuts instance certification time, replacing a manual process and validating results side by side with the legacy flow. Designed an AI failure-analysis layer that cross-references current and historical test logs using Amazon's internal AI/MCP tooling to diagnose certification failures and recommend next steps, shipped as an MCP/CLI tool that serves as the developer-facing entry point. Delivered ahead of schedule and picked up a second project: an AI analyzer for the team's metrics pipeline with live refresh and automated error alerting for goal tracking. All work verified through Amazon's internal CI/CD pipeline and testing frameworks.</p>
                                 <div class="experience-highlights">
                                     <div class="highlight-item">
-                                        <span class="highlight-icon">🛠️</span>
-                                        <span>Org-Wide Internal Tooling</span>
+                                        <span class="highlight-icon">🧪</span>
+                                        <span>Automated Certification Testing</span>
                                     </div>
                                     <div class="highlight-item">
                                         <span class="highlight-icon">🤖</span>
-                                        <span>AI/MCP-Powered CLI</span>
+                                        <span>AI Failure Analysis + MCP/CLI</span>
                                     </div>
                                     <div class="highlight-item">
-                                        <span class="highlight-icon">📉</span>
-                                        <span>30% Faster Certification</span>
+                                        <span class="highlight-icon">📊</span>
+                                        <span>Metrics Pipeline AI Analyzer</span>
                                     </div>
                                 </div>
                                 <div class="skills-gained">
                                     <span class="skill-tag">Amazon DocumentDB</span>
-                                    <span class="skill-tag">Distributed Systems</span>
-                                    <span class="skill-tag">AI/MCP Tooling</span>
+                                    <span class="skill-tag">MCP Tooling</span>
+                                    <span class="skill-tag">CI/CD</span>
                                     <span class="skill-tag">CLI Development</span>
                                 </div>
                             </div>
@@ -693,15 +776,15 @@
                                 </div>
                             </div>
                             <div class="experience-body">
-                                <p>Designed and deployed an internal tooling system (ASP.NET Core, C#, SQL Server, Entity Framework) with RESTful APIs and role-based access control, supporting 150–200 applications per quarter. Engineered an admin dashboard with automated workflows and dynamic filtering, reducing manual review time by 60% per quarterly cycle. Modernized a legacy application portal using JavaScript, jQuery, and Razor views, saving an estimated $10K annually in labor hours across hundreds of applicants per cycle.</p>
+                                <p>Built the Explore Career Path Program platform (ASP.NET Core, C#, jQuery, SQL Server) covering email templating, bulk send, and survey and application management for 150–200 applications per quarter. Built an email automation system that cut manual labor 30% and roughly $10K in labor cost. Designed a survey template system with a full controller rewrite, normalized question options, and conditional UI for dropdown and checkbox types, plus an email template manager with CKEditor. Resolved LDAP authentication vulnerabilities, SQL truncation bugs, and NuGet persistence issues in the legacy codebase, and wrote stored procedures and Python ETL scripts to load Qualtrics exports into SQL Server.</p>
                                 <div class="experience-highlights">
                                     <div class="highlight-item">
-                                        <span class="highlight-icon">🏗️</span>
-                                        <span>Full-Stack ASP.NET Core & C#</span>
+                                        <span class="highlight-icon">📧</span>
+                                        <span>Email Automation, −30% Manual Labor</span>
                                     </div>
                                     <div class="highlight-item">
-                                        <span class="highlight-icon">⚡</span>
-                                        <span>60% Reduction in Review Time</span>
+                                        <span class="highlight-icon">🛡️</span>
+                                        <span>LDAP & Legacy Bug Fixes</span>
                                     </div>
                                     <div class="highlight-item">
                                         <span class="highlight-icon">💵</span>
@@ -712,7 +795,8 @@
                                     <span class="skill-tag">ASP.NET Core</span>
                                     <span class="skill-tag">C#</span>
                                     <span class="skill-tag">SQL Server</span>
-                                    <span class="skill-tag">Entity Framework</span>
+                                    <span class="skill-tag">jQuery</span>
+                                    <span class="skill-tag">Python ETL</span>
                                 </div>
                             </div>
                         </div>
@@ -732,32 +816,32 @@
                                 </div>
                                 <div class="experience-meta">
                                     <div class="experience-badge">Current</div>
-                                    <h3>Freelance Software Developer</h3>
-                                    <p class="company">Valhalla FC</p>
+                                    <h3>Founder & Lead Developer</h3>
+                                    <p class="company">Valhalla FC — EA Sports FC Mobile Community</p>
                                     <p class="duration">September 2024 - Present</p>
                                 </div>
                             </div>
                             <div class="experience-body">
-                                <p>Designed and deployed a distributed Python backend from scratch, supporting 200+ concurrent users with 99.9% uptime and sub-second response times via MongoDB-backed real-time data pipelines. Engineered a custom Discord bot serving as the core platform for a 2,700+ member community, with a real-time auction engine, tournament bracket management, and automated event workflows. Built a custom Discord minigame that increased server interaction by 25%.</p>
+                                <p>Founded and run one of the larger EA Sports FC Mobile Discord communities (2,700+ members), with a custom bot as the core platform. Built a real-time auction engine and fixed a concurrency bug that surfaced under load from 32 simultaneous captains. Reverse-engineered the RenderZ API into a MongoDB sync pipeline keyed by asset ID. Built the VFC Coin economy (append-only ledger, event state machine, chat earnings with role multipliers, PvP minigames, shop, Golden Hour), a Pillow-based player card renderer, and an Elo-based community card-ranking system with anti-bot checks and per-dimension leaderboards. Runs scheduled analytics across two Atlas clusters; managed a 144-player tournament roster split. A custom Discord game raised server interaction ~25%.</p>
                                 <div class="experience-highlights">
                                     <div class="highlight-item">
-                                        <span class="highlight-icon">☁️</span>
-                                        <span>99.9% Uptime Backend</span>
+                                        <span class="highlight-icon">🪙</span>
+                                        <span>VFC Coin Economy</span>
                                     </div>
                                     <div class="highlight-item">
                                         <span class="highlight-icon">👥</span>
                                         <span>2,700+ Member Community</span>
                                     </div>
                                     <div class="highlight-item">
-                                        <span class="highlight-icon">🎮</span>
-                                        <span>+25% Server Interaction</span>
+                                        <span class="highlight-icon">🏆</span>
+                                        <span>Elo Card Rankings</span>
                                     </div>
                                 </div>
                                 <div class="skills-gained">
                                     <span class="skill-tag">Python</span>
-                                    <span class="skill-tag">MongoDB</span>
-                                    <span class="skill-tag">Discord.py</span>
-                                    <span class="skill-tag">asyncio</span>
+                                    <span class="skill-tag">discord.py</span>
+                                    <span class="skill-tag">MongoDB Atlas</span>
+                                    <span class="skill-tag">Next.js 14</span>
                                 </div>
                             </div>
                         </div>
@@ -838,7 +922,7 @@
                         <h2>Passionate Developer & Problem Solver</h2>
                     </div>
                     <div class="about-paragraphs">
-                        <p>Hello! I'm <strong>Mark Ruangrattham</strong>, a Computer Science graduate of UCSD (B.S., June 2026) now pursuing an M.S. in Computer Science at <strong>Georgia Tech</strong> on the <strong>Computing Systems Track</strong>, which I started in August 2026 and expect to finish in December 2027. This past summer I was a <strong>Software Development Engineer Intern at AWS</strong> on the DocumentDB team in Seattle, where I built internal tooling adopted org-wide, an AI-powered failure analysis CLI using Amazon's internal AI/MCP tooling, and worked with senior SDEs on a distributed, serverless document database. Before that, I spent over a year as a <strong>Full Stack Software Engineer at UCSD Health's Explore Career Path Program</strong>, and interned at <strong>Transact Campus + CBORD</strong>, where I built a RAG pipeline over AWS Bedrock that cut support ticket volume by 30%. Outside of work, I'm an avid gamer and sports enthusiast—whether it's Minecraft, League of Legends, or FIFA, I love diving into interactive and competitive experiences. I've merged my passions for coding, gaming, and sports as a <strong>freelance Software Developer for Valhalla FC</strong>, an online soccer gaming community that's grown to 2,700+ members, where I built a distributed Python backend and the Discord platform's real-time auction engine. I'm eager to keep applying my technical expertise, systems-minded thinking, and creativity in the fast-moving world of technology—contributing to meaningful projects, tackling real-world challenges, and continuing to learn along the way.</p>
+                        <p>Hello! I'm <strong>Mark Ruangrattham</strong>, a Seattle-based software engineer. I graduated from UCSD in June 2026 with a B.S. in Computer Science and a minor in Economics, and I'm now in Georgia Tech's <strong>OMSCS program</strong> on the <strong>Computing Systems Track</strong>, taking Software Analysis & Testing, Graduate Intro to Operating Systems, and High Performance Computer Architecture this fall. This past summer I was a <strong>Software Development Engineer Intern at AWS</strong> on the DocumentDB team, where I built and owned an automated certification testing system, an AI failure-analysis layer shipped as an MCP/CLI tool, and, after finishing ahead of schedule, an AI analyzer for the team's metrics pipeline. Before that I spent over a year as a <strong>Full Stack Software Engineer at UCSD Health's Explore Career Path Program</strong> and interned at <strong>Transact Campus</strong>, where I built an AI chatbot on AWS Bedrock that was deployed company-wide. Outside of work I'm a gamer and sports fan, and that's how <strong>Valhalla FC</strong> happened: I founded one of the larger EA Sports FC Mobile Discord communities, now 2,700+ members, and built its whole platform, from a real-time auction engine and a coin economy to Elo-based card rankings. I like systems problems, developer tooling, and shipping things people actually use.</p>
                     </div>
                 </div>
                 <div class="about-stats">
@@ -846,14 +930,14 @@
                         <div class="stat-icon">🎓</div>
                         <div class="stat-content">
                             <h3>UCSD</h3>
-                            <p>B.S. Computer Science · June 2026</p>
+                            <p>B.S. Computer Science · Econ Minor · June 2026</p>
                         </div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon">🐝</div>
                         <div class="stat-content">
                             <h3>Georgia Tech</h3>
-                            <p>M.S. CS · Computing Systems · In progress</p>
+                            <p>M.S. CS · OMSCS · Computing Systems</p>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -895,7 +979,7 @@
                         <h4>📚 Completed Courses at UCSD</h4>
                         <div class="course-list">
                             <div class="course-item">Data Structures & Algorithms</div>
-                            <div class="course-item">Operating Systems</div>
+                            <div class="course-item">Operating Systems (Nachos)</div>
                             <div class="course-item">Design and Analysis of Algorithms</div>
                             <div class="course-item">Database Systems</div>
                             <div class="course-item">Computer and Network Security</div>
@@ -911,14 +995,18 @@
                             <div class="course-item">AWS Certified Cloud Practitioner</div>
                             <div class="course-item">Introduction to Computer Vision I — Applications of Computing</div>
                             <div class="course-item">Advanced React Development</div>
+                            <div class="course-item">CS Education & Teacher Prep</div>
+                            <div class="course-item">Economics Minor (ECON 4, ECON 175)</div>
                         </div>
                     </div>
 
                     <div class="course-category">
                         <h4>🐝 Georgia Tech — M.S. Computer Science</h4>
                         <div class="course-list">
-                            <div class="course-item">Computing Systems Track · Started Aug 2026 · Expected Dec 2027</div>
-                            <div class="course-item">Focus: Systems, Architecture & Operating Systems</div>
+                            <div class="course-item">Computing Systems Track · Started Fall 2026 · Expected Dec 2027</div>
+                            <div class="course-item">CS 6340 Software Analysis & Testing</div>
+                            <div class="course-item">CS 6200 Graduate Intro to Operating Systems</div>
+                            <div class="course-item">CS 6290 High Performance Computer Architecture</div>
                         </div>
                     </div>
                 </div>
@@ -960,7 +1048,7 @@
                             </div>
                         </a>
 
-                        <a href="https://www.linkedin.com/in/mark-ruangrattham/" target="_blank" class="contact-method">
+                        <a href="https://www.linkedin.com/in/mark-ruang/" target="_blank" class="contact-method">
                             <div class="contact-icon">
                                 <img src="img/icons/linkedin.png" alt="LinkedIn">
                             </div>

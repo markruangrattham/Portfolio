@@ -92,24 +92,29 @@ export default async function handler(req, res) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
 
+  const payload = JSON.stringify({
+    model: MODEL,
+    stream: true,
+    max_tokens: MAX_OUTPUT_TOKENS,
+    temperature: 0.5,
+    // Groq's gpt-oss models accept this; other providers ignore unknown fields or
+    // reject them (set LLM_MODEL/LLM_BASE_URL to a model that doesn't need it).
+    ...(MODEL.startsWith("openai/gpt-oss") ? { reasoning_effort: "low" } : {}),
+    messages: [
+      { role: "system", content: `${SYSTEM_PROMPT}\n\nToday's date is ${new Date().toISOString().slice(0, 10)}.` },
+      ...history,
+    ],
+  });
+
   let upstream;
   try {
-    upstream = await fetch(`${BASE_URL}/chat/completions`, {
+    upstream = await fetchWithRetry(`${BASE_URL}/chat/completions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${API_KEY}`,
       },
-      body: JSON.stringify({
-        model: MODEL,
-        stream: true,
-        max_tokens: MAX_OUTPUT_TOKENS,
-        temperature: 0.35, // low: the persona should stick to the facts, not improvise
-        messages: [
-          { role: "system", content: `${SYSTEM_PROMPT}\n\nToday's date is ${new Date().toISOString().slice(0, 10)}.` },
-          ...history,
-        ],
-      }),
+      body: payload,
       signal: controller.signal,
     });
   } catch (error) {
@@ -144,6 +149,30 @@ export default async function handler(req, res) {
   }
   if (!wroteAnything) res.write("Hmm, I came up empty. Could you rephrase that?");
   res.end();
+}
+
+// Free tiers rate-limit by the minute. On a 429 with a short retry-after, wait it
+// out once instead of bouncing the visitor; anything longer falls through to a
+// friendly error.
+const RETRY_MAX_WAIT_MS = 20000;
+
+async function fetchWithRetry(url, init) {
+  const first = await fetch(url, init);
+  if (first.status !== 429) return first;
+  const wait = parseRetryAfterMs(first.headers.get("retry-after"));
+  if (wait === null || wait > RETRY_MAX_WAIT_MS) return first;
+  await first.text().catch(() => {});
+  console.warn(`upstream 429, retrying in ${wait}ms`);
+  await new Promise((r) => setTimeout(r, wait));
+  return fetch(url, init);
+}
+
+function parseRetryAfterMs(header) {
+  if (!header) return 2000;
+  const secs = Number(header);
+  if (Number.isFinite(secs)) return Math.max(250, Math.ceil(secs * 1000));
+  const at = Date.parse(header);
+  return Number.isNaN(at) ? 2000 : Math.max(250, at - Date.now());
 }
 
 // ─── Streaming: parse OpenAI-style SSE and yield only the text deltas ─────────
