@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" font-family="Inter, -apple-system, Segoe UI, Roboto, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#ef4444"/></marker>
+  </defs>
+  <rect width="900" height="300" fill="#f8fafc"/>
+  <g stroke="#e2e8f0" fill="#fff" stroke-width="2">
+    <rect x="30" y="80" width="230" height="140" rx="14"/>
+    <rect x="335" y="80" width="230" height="140" rx="14"/>
+    <rect x="640" y="80" width="230" height="140" rx="14"/>
+  </g>
+  <g stroke="#ef4444" stroke-width="3" marker-end="url(#a)">
+    <line x1="266" y1="150" x2="326" y2="150"/>
+    <line x1="571" y1="150" x2="631" y2="150"/>
+  </g>
+  <g text-anchor="middle" fill="#0f172a">
+    <text x="145" y="135" font-size="20" font-weight="700">Valhalla FC bot</text>
+    <text x="145" y="165" font-size="15" fill="#475569">Databases, a little HTML</text>
+    <text x="145" y="190" font-size="15" fill="#475569">Built for fun</text>
+    <text x="450" y="135" font-size="20" font-weight="700">UCSD Health</text>
+    <text x="450" y="165" font-size="15" fill="#475569">Database design came up</text>
+    <text x="450" y="190" font-size="15" fill="#475569">My year of experience</text>
+    <text x="755" y="135" font-size="20" font-weight="700">DocumentDB</text>
+    <text x="755" y="165" font-size="15" fill="#475569">AWS database team</text>
+    <text x="755" y="190" font-size="15" fill="#475569">Summer 2026</text>
+  </g>
+  <text x="450" y="45" text-anchor="middle" font-size="18" font-weight="700" fill="#dc2626">One thread, three places</text>
+</svg>

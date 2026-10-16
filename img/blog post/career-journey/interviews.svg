@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" font-family="Inter, -apple-system, Segoe UI, Roboto, sans-serif">
+  <rect width="900" height="460" fill="#f8fafc"/>
+  <g font-size="16" font-weight="700" fill="#64748b">
+    <text x="190" y="40" text-anchor="middle">Company</text>
+    <text x="450" y="40" text-anchor="middle">What I thought</text>
+    <text x="745" y="40" text-anchor="middle">What happened</text>
+  </g>
+  <g font-size="17" fill="#0f172a">
+    <rect x="30" y="60" width="840" height="78" rx="12" fill="#fff" stroke="#e2e8f0"/>
+    <text x="190" y="105" text-anchor="middle" font-weight="700">Cbord</text>
+    <text x="450" y="105" text-anchor="middle" fill="#475569">Blanked on OOP, bad vibes</text>
+    <text x="745" y="105" text-anchor="middle" font-weight="600" fill="#dc2626">Offer</text>
+
+    <rect x="30" y="156" width="840" height="78" rx="12" fill="#fff" stroke="#e2e8f0"/>
+    <text x="190" y="201" text-anchor="middle" font-weight="700">Capital One</text>
+    <text x="450" y="201" text-anchor="middle" fill="#475569">Interviewers did not like me</text>
+    <text x="745" y="201" text-anchor="middle" font-weight="600" fill="#475569">Rejected (honest one)</text>
+
+    <rect x="30" y="252" width="840" height="78" rx="12" fill="#fff" stroke="#e2e8f0"/>
+    <text x="190" y="297" text-anchor="middle" font-weight="700">Amazon OA</text>
+    <text x="450" y="297" text-anchor="middle" fill="#475569">Second question went badly</text>
+    <text x="745" y="297" text-anchor="middle" font-weight="600" fill="#dc2626">Passed</text>
+
+    <rect x="30" y="348" width="840" height="78" rx="12" fill="#fff" stroke="#e2e8f0"/>
+    <text x="190" y="393" text-anchor="middle" font-weight="700">Amazon interview</text>
+    <text x="450" y="393" text-anchor="middle" fill="#475569">Missed the hashing question</text>
+    <text x="745" y="393" text-anchor="middle" font-weight="600" fill="#dc2626">Offer</text>
+  </g>
+</svg>

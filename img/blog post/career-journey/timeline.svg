@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="Inter, -apple-system, Segoe UI, Roboto, sans-serif">
+  <rect width="900" height="560" fill="#f8fafc"/>
+  <line x1="450" y1="40" x2="450" y2="520" stroke="#e2e8f0" stroke-width="6" stroke-linecap="round"/>
+  <g font-size="18" fill="#0f172a">
+    <g>
+      <circle cx="450" cy="60" r="11" fill="#64748b"/>
+      <text x="430" y="55" text-anchor="end" font-weight="700">Third year</text>
+      <text x="430" y="78" text-anchor="end" fill="#475569" font-size="15">Nothing lined up, rough patch</text>
+    </g>
+    <g>
+      <circle cx="450" cy="135" r="11" fill="#f87171"/>
+      <text x="470" y="130" font-weight="700">Summer 2024</text>
+      <text x="470" y="153" fill="#475569" font-size="15">Building the Valhalla FC bot</text>
+    </g>
+    <g>
+      <circle cx="450" cy="210" r="11" fill="#f87171"/>
+      <text x="430" y="205" text-anchor="end" font-weight="700">Fourth year</text>
+      <text x="430" y="228" text-anchor="end" fill="#475569" font-size="15">UCSD Health, office hours</text>
+    </g>
+    <g>
+      <circle cx="450" cy="285" r="11" fill="#ef4444"/>
+      <text x="470" y="280" font-weight="700">Summer 2025</text>
+      <text x="470" y="303" fill="#475569" font-size="15">Cbord internship</text>
+    </g>
+    <g>
+      <circle cx="450" cy="360" r="11" fill="#ef4444"/>
+      <text x="430" y="355" text-anchor="end" font-weight="700">Fall 2025</text>
+      <text x="430" y="378" text-anchor="end" fill="#475569" font-size="15">James, LeetCode, Capital One</text>
+    </g>
+    <g>
+      <circle cx="450" cy="435" r="11" fill="#dc2626"/>
+      <text x="470" y="430" font-weight="700">After James left</text>
+      <text x="470" y="453" fill="#475569" font-size="15">OMSCS, Amazon OA and interview</text>
+    </g>
+    <g>
+      <circle cx="450" cy="505" r="14" fill="#dc2626"/>
+      <circle cx="450" cy="505" r="22" fill="none" stroke="#ef4444" stroke-width="2" opacity="0.4"/>
+      <text x="425" y="500" text-anchor="end" font-weight="700">Sept 2026</text>
+      <text x="425" y="522" text-anchor="end" fill="#475569" font-size="15">Return offer, start Feb 1, 2027</text>
+    </g>
+  </g>
+</svg>

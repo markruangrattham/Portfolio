@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 10 1200 450" font-family="Inter, -apple-system, Segoe UI, Roboto, sans-serif">
+  <rect width="1200" height="500" fill="#f8fafc"/>
+  <rect y="440" width="1200" height="60" fill="#f1f5f9"/>
+  <path d="M60 400 C 220 400, 260 420, 380 380 S 560 330, 640 300 S 800 200, 900 170 S 1060 100, 1140 90" fill="none" stroke="#e2e8f0" stroke-width="14" stroke-linecap="round"/>
+  <path d="M60 400 C 220 400, 260 420, 380 380 S 560 330, 640 300 S 800 200, 900 170 S 1060 100, 1140 90" fill="none" stroke="#ef4444" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 14"/>
+  <circle cx="110" cy="402" r="16" fill="#64748b"/>
+  <circle cx="380" cy="380" r="16" fill="#f87171"/>
+  <circle cx="640" cy="300" r="16" fill="#ef4444"/>
+  <circle cx="900" cy="170" r="16" fill="#dc2626"/>
+  <circle cx="1140" cy="90" r="20" fill="#dc2626"/>
+  <circle cx="1140" cy="90" r="34" fill="none" stroke="#ef4444" stroke-width="3" opacity="0.4"/>
+  <g font-size="22" font-weight="600" fill="#0f172a" text-anchor="middle">
+    <text x="110" y="360">Year 3</text>
+    <text x="380" y="340">The bot</text>
+    <text x="640" y="345">First internship</text>
+    <text x="900" y="130">Amazon</text>
+    <text x="1060" y="170" font-size="20" fill="#dc2626">SDE1</text>
+  </g>
+  <text x="60" y="60" font-size="34" font-weight="700" fill="#0f172a">From a low point to a return offer</text>
+  <text x="60" y="96" font-size="20" fill="#475569">Not a straight line</text>
+</svg>
